@@ -1,2 +1,78 @@
-<h1>Hello World!</h1>
-<a href="./index01.html">index01.html</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body{
+      position: relative;
+      width: 100vmin;
+      height: 100vh; /* 让body高度占满视口 */
+      background-color: #000000;
+      margin: 0 auto; /* 让body在页面中水平居中 */
+    }
+    .head{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      background-image: url(./resources/head.jpg);
+      background-size: contain;/* 保持比例缩放图片，使其完整显示在盒子内（可能有空白区域） */
+      border-radius: 50%;
+    }
+    .halo{
+      position: absolute;
+      left: 50%;
+      top: 50.5%;
+      transform: translate(-50%, -50%);
+    }
+    .halo svg{
+      width: 5rem;
+      overflow: visible; /* 允许SVG内容溢出其viewBox范围 */
+    }
+    .halo svg circle{
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 8;
+      stroke-dasharray: 160;
+      stroke-dashoffset:160 ;
+      transform-origin: center;
+      animation: circle_rotate 3s ease-in-out infinite;
+      /* border-radius: 8; */
+    }
+    @keyframes circle_rotate {
+      0%{
+        transform: rotate(0deg);
+        stroke-dashoffset: 160;
+      }
+      100%{
+        transform: rotate(360deg);
+        stroke-dashoffset: -160;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="halo">
+    <svg viewbox="0 0 50 50">
+      <circle r="25" cx="25" cy="25"></circle>
+    </svg>
+  </div>
+
+  <div class="head"></div>
+<!-- <a href="./index01.html">index01.html</a> -->
+  
+
+<script>
+
+</script>
+</body>
+</html>
