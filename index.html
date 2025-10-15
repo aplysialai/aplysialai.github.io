@@ -17,62 +17,218 @@
       background-color: #000000;
       margin: 0 auto; /* 让body在页面中水平居中 */
     }
-    .head{
+    a{
+      text-decoration: none;
+      color: inherit;
+    }
+    .head-box{
       position: absolute;
+      width: 30%;
+      height: 50%;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      width: 50px;
-      height: 50px;
-      background-image: url(./resources/head.jpg);
-      background-size: contain;/* 保持比例缩放图片，使其完整显示在盒子内（可能有空白区域） */
-      border-radius: 50%;
     }
-    .halo{
+    .head-back{
       position: absolute;
-      left: 50%;
-      top: 50.5%;
+      /* width: 100%; */
+      /* height: 100%; */
+      min-width: 70px;
+      min-height: 70px;
+      background-color: #fff;
+      opacity: 0;
+      border-radius: 20px;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+       transition: all 0.8s ease-in-out; /* 添加过渡动画 */
+      /* 初始位置与头像重叠 */
+      left: 56%;
+      top: 30%;
       transform: translate(-50%, -50%);
     }
-    .halo svg{
-      width: 5rem;
-      overflow: visible; /* 允许SVG内容溢出其viewBox范围 */
+    .head{
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      background-image: url(./resources/head.jpg); /* 使用示例图片 */
+      background-size: contain;
+      border-radius: 50%;
+      z-index: 2;
+      cursor: pointer; /* 显示点击指针 */
+      transition: all 1s ease; /* 添加过渡动画 */
+      /* 初始位置 */
+      left: 50%;
+      top: 30%;
+      transform: translate(-50%, -50%);
     }
-    .halo svg circle{
-      fill: none;
-      stroke: #ffffff;
-      stroke-width: 8;
-      stroke-dasharray: 160;
-      stroke-dashoffset:160 ;
-      transform-origin: center;
-      animation: circle_rotate 3s ease-in-out infinite;
-      /* border-radius: 8; */
+     .name {
+       color: #000;
+      font-family: Arial, sans-serif;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 0 20px;
     }
-    @keyframes circle_rotate {
-      0%{
-        transform: rotate(0deg);
-        stroke-dashoffset: 160;
-      }
-      100%{
-        transform: rotate(360deg);
-        stroke-dashoffset: -160;
-      }
+    
+    /* 激活状态样式 */
+    .head.active {
+      /* 头像向左平移50px */
+      transform: translate(calc(-50% - 50px), -50%);
     }
+    
+    .head-back.active {
+      opacity: 1;
+      /* 背景框向右平移到头像右侧 */
+      transform: translate(calc(-50% + 80px), -50%);
+    }
+    /* --------------- 表单样式优化 --------------- */
+    /* 1. 表单位置调整到左上角 */
+    /* 表单相关样式 */
+    .form-toggle {
+      position: fixed;
+      left: 0;
+      top: 0; /* 从顶部开始，位于左上角 */
+      margin: 20px; /* 与边缘保持间距，避免紧贴 */
+      width: 50px;
+      height: 50px;
+      background-color: #ffffff; /* 按钮背景白色 */
+      border-radius: 50%; /* 圆形按钮更精致 */
+      cursor: pointer;
+      z-index: 10;
+      transition: all 1s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none; /* 清除默认边框 */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* 轻微阴影增强层次感 */
+    }
+ /* 2. 淡蓝色系表单配色（从浅到深层次） */
+    .list {
+      position: fixed;
+      left: -300px; 
+      top: 0;
+      width: 300px;
+      height: 100vh;
+      background-color: #EBF5FF; /* 最浅：淡蓝背景（表单容器） */
+      padding: 25px 15px;
+      z-index: 5;
+      transition: all 1s ease; 
+      overflow-y: scroll; 
+      border-radius: 0 30px 30px 0;
+    }
+   .list-bgc {
+      background-color: #D4E6FC; /* 中间：浅蓝背景（内容外层） */
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+      transition: background-color 0.3s ease; /* hover效果过渡 */
+    }
+    .list-bgc:hover {
+      background-color: #C3DFFF; /*  hover时加深，增强交互感 */
+    }
+
+    .list-content {
+      background-color: #4A90E2; /* 最深：中蓝背景（内容内层） */
+      border-radius: 12px;
+      padding: 12px 15px;
+      color: #FFFFFF; /* 文字白色，保证可读性 */
+      min-height: 45px;
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    /* 3. 表单显示/隐藏状态 */
+    .list.active {
+      left: 0; 
+    }
+    .form-toggle.active {
+      left: 300px; /* 与表单宽度适配，避免遮挡 */
+    }
+
+    /* 4. 隐藏滚动条 */
+    .list::-webkit-scrollbar {
+      display: none;
+    }
+    .list {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* 5. SVG图标过渡动画 */
+    .toggle-icon {
+      transition: transform 1s ease-in-out; /* 旋转动画过渡 */
+      fill: #2D3748; /* 图标默认黑色（加粗效果） */
+    }
+    .form-toggle.active .toggle-icon {
+      transform: rotate(45deg); /* 激活时顺时针旋转45度（变叉号） */
+    }
+    
   </style>
 </head>
 <body>
-  <div class="halo">
-    <svg viewbox="0 0 50 50">
-      <circle r="25" cx="25" cy="25"></circle>
+   <!-- --------------- SVG动画按钮 --------------- -->
+  <button class="form-toggle">
+    <!-- SVG加号图标（加粗效果，无描边纯填充） -->
+    <svg class="toggle-icon" width="24" height="24" viewBox="0 0 24 24">
+      <!-- 水平线 -->
+      <rect x="10" y="4" width="4" height="16" rx="2" ry="2"/>
+      <!-- 垂直线 -->
+      <rect x="4" y="10" width="16" height="4" rx="2" ry="2"/>
     </svg>
-  </div>
-
-  <div class="head"></div>
-<!-- <a href="./index01.html">index01.html</a> -->
+  </button>
   
-
+  <!-- 滑动表单 -->
+  <div class="list">
+    <div class="list-bgc">
+      <div class="list-content"><a href="./test-loading/index01.html">Loading...</a></div>
+    </div>
+  </div>  
+  <div class="head-box">
+    <div class="head"></div>
+    <div class="head-back">
+      <div class="name">AplysiaLai</div>
+    </div>
+  <!-- <a href="./index01.html">index01.html</a> -->
+  </div>
 <script>
+// 获取头像和背景元素
+const head = document.querySelector('.head');
+const headBack = document.querySelector('.head-back');
 
+// 初始状态为隐藏
+let isActive = false;
+
+// 添加点击事件监听
+head.addEventListener('click', () => {
+  // 切换状态
+  isActive = !isActive;
+  
+  // 根据状态添加或移除active类
+  if (isActive) {
+    head.classList.add('active');
+    headBack.classList.add('active');
+  } else {
+    head.classList.remove('active');
+    headBack.classList.remove('active');
+  }
+});
+// --------------- 表单滑动逻辑 ---------------
+    const formToggle = document.querySelector('.form-toggle');
+    const list = document.querySelector('.list');
+    let formVisible = false;
+    
+    formToggle.addEventListener('click', () => {
+      formVisible = !formVisible;
+      // 切换表单显示/隐藏
+      list.classList.toggle('active', formVisible);
+      // 切换按钮状态（位置+图标旋转）
+      formToggle.classList.toggle('active', formVisible);
+    });
+
+   
 </script>
 </body>
 </html>
