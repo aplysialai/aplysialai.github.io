@@ -29,22 +29,26 @@
       top: 50%;
       transform: translate(-50%, -50%);
     }
-    .head-back{
+    .name-back{
       position: absolute;
-      min-width: 70px;
+      width: 70px;
       min-height: 70px;
-      background-color: #fff;
+      background-color: #78787836; /* 半透明黑色背景 */
       opacity: 0;
-      border-radius: 20px;
-      z-index: 1;
+      border-radius: 25px;
+      z-index: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       transition: all 0.8s ease-in-out; /* 添加过渡动画 */
       /* 初始位置与头像重叠 */
-      left: 58%;
-      top: 30%;
-      transform: translate(-50%, -50%);
+      left: 40%;
+      top: 50%;
+      transform: translate(-35%, -50%);
+      box-shadow: inset 0  1px 1px #ffffff50,
+      0 1px 2px #00000050,
+      0 2px 8px #00000025;
+      
     }
     .head{
       position: absolute;
@@ -58,32 +62,39 @@
       transition: all 1s ease; /* 添加过渡动画 */
       /* 初始位置 */
       left: 50%;
-      top: 30%;
+      top: 50%;
       transform: translate(-50%, -50%);
     }
      .name {
-       color: #000;
+       color: #ffffff;
       font-family: Arial, sans-serif;
       font-size: 1.2rem;
       font-weight: bold;
       padding: 0 20px;
+      opacity: 0;
+      transition: all 0.5s ease-in-out; /* 添加过渡动画 */
+    }
+    .name.active{
+      opacity: 1;
+      transition: opacity 0.7s ease-in-out 0.2s; /* 延迟显示文字 */
     }
     /* 激活状态样式 */
     .head.active {
       /* 头像向左平移50px */
       transform: translate(calc(-50% - 50px), -50%);
     }
-    .head-back.active {
+    .name-back.active {
       opacity: 1;
+      width: 140px;
       /* 背景框向右平移到头像右侧 */
-      transform: translate(calc(-50% + 80px), -50%);
+      transform: translate(calc(0% + 60px), -50%);
     }
     /* --------------- 表单样式优化 --------------- */
-    /* 1. 表单位置调整到左上角 */
+
     /* 表单相关样式 */
     .form-toggle {
       position: fixed;
-      left: 0;
+      right: 0;
       top: 0; /* 从顶部开始，位于左上角 */
       margin: 20px; /* 与边缘保持间距，避免紧贴 */
       width: 50px;
@@ -99,63 +110,77 @@
       border: none; /* 清除默认边框 */
       box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* 轻微阴影增强层次感 */
     }
- /* 2. 淡蓝色系表单配色（从浅到深层次） */
-    .list {
-      position: fixed;
-      left: -300px; 
-      top: 0;
-      width: 300px;
-      height: 100vh;
-      background-color: #EBF5FF; /* 最浅：淡蓝背景（表单容器） */
-      padding: 25px 15px;
-      z-index: 5;
-      transition: all 1s ease; 
-      overflow-y: scroll; 
-      border-radius: 0 30px 30px 0;
+    /* 为第一条矩形添加过渡动画 */
+    #first-rect {
+      transition: width 0.2s ease-in-out;
     }
-   .list-bgc {
-      background-color: #D4E6FC; /* 中间：浅蓝背景（内容外层） */
-      border-radius: 12px;
-      padding: 18px;
-      margin-bottom: 18px;
-      transition: background-color 0.3s ease; /* hover效果过渡 */
+    /* 为第二条矩形添加过渡动画 */
+    #second-rect {
+      transform-origin:  center;
+      transition: transform 0.8s ease-in-out,width 0.6s ease-in-out, x 0.6s ease-in-out; /* 增加x轴过渡 */
     }
-    .list-bgc:hover {
-      background-color: #C3DFFF; /*  hover时加深，增强交互感 */
+    #third-rect {
+  /* 设置旋转原点为x:4的位置（左边缘） */
+      transform-origin: center;
+      transition: transform 0.8s ease-in-out;
     }
-    .list-content {
-      background-color: #4A90E2; /* 最深：中蓝背景（内容内层） */
-      border-radius: 12px;
-      padding: 12px 15px;
-      color: #FFFFFF; /* 文字白色，保证可读性 */
-      min-height: 45px;
-      font-family: "Microsoft YaHei", Arial, sans-serif;
-      font-size: 1rem;
-      line-height: 1.5;
-      cursor: pointer;
+    #first-rect, #second-rect, #third-rect {
+      transition: all 0.4s ease-in-out 0.3s; 
+      /* 非悬停在元素内时，过渡动画会延迟 0.3 秒才开始执行 */
     }
-    /* 3. 表单显示/隐藏状态 */
-    .list.active {
-      left: 0; 
+    /* 鼠标悬停时的动画效果 */
+    .form-toggle:hover #first-rect {
+      width: 4px; /* 延长到与第二条矩形连接的宽度 */
+      transition: all 0.3s ease-in-out;
     }
+    /* 悬停时隐藏第二条矩形（形成一条线的视觉效果） */
+    .form-toggle:hover #second-rect {
+      x:4;
+      width: 16px;
+      transition: all 0.3s ease-in-out;
+    }
+    .form-toggle:hover #third-rect {
+      transition: all 0.4s ease-in-out;
+    }
+    .form-toggle:hover #first-rect,
+    .form-toggle:hover #second-rect,
+    .form-toggle:hover #third-rect {
+      transition-delay: 0s; 
+      /* 悬停时立即生效 覆盖了默认的延迟设置，
+      使得悬停时的样式变化（如矩形的宽度、位置调整）能够立即触发，
+      不需要等待 0.3 秒*/
+    } 
+    /* 激活状态样式 */
     .form-toggle.active {
-      left: 300px; /* 与表单宽度适配，避免遮挡 */
+      
     }
-    /* 4. 隐藏滚动条 */
-    .list::-webkit-scrollbar {
-      display: none;
+    .form-toggle.active #first-rect {
+      x:9;
+      y:-2;
+      width: 4px;
+      transform: rotate(45deg);
     }
-    .list {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+    .form-toggle.active #second-rect {
+      x:16;
+      y:10;
+      width: 4px;
+      transform: rotate(45deg);
     }
-    /* 5. SVG图标过渡动画 */
-    .toggle-icon {
-      transition: transform 1s ease-in-out; /* 旋转动画过渡 */
-      fill: #2D3748; /* 图标默认黑色（加粗效果） */
+    .form-toggle.active #third-rect {
+      x:4;
+      y:10;
+      transform: rotate(-45deg);
     }
-    .form-toggle.active .toggle-icon {
-      transform: rotate(45deg); /* 激活时顺时针旋转45度（变叉号） */
+    /* 激活样式状态下悬停 */
+    .form-toggle.active:hover #first-rect {
+      width: 9px;
+      transform: rotate(45deg);
+    }
+    .form-toggle.active:hover #second-rect {
+      x:12;
+      y:10;
+      width: 8px;
+      transform: rotate(45deg);
     }
   </style>
 </head>
@@ -164,60 +189,73 @@
   <button class="form-toggle">
     <!-- SVG加号图标（加粗效果，无描边纯填充） -->
     <svg class="toggle-icon" width="24" height="24" viewBox="0 0 24 24">
+      <rect id="first-rect" x="4" y="8" width="10" height="4" rx="2" ry="2"/>
       <!-- 水平线 -->
-      <rect x="10" y="4" width="4" height="16" rx="2" ry="2"/>
+      <rect id="second-rect" x="16" y="8" width="4" height="4" rx="2" ry="2"/>
       <!-- 垂直线 -->
-      <rect x="4" y="10" width="16" height="4" rx="2" ry="2"/>
+      <rect id="third-rect" x="4" y="16" width="16" height="4" rx="2" ry="2"/> 
     </svg>
   </button>
   
-  <!-- 滑动表单 -->
-  <div class="list">
-    <div class="list-bgc">
-      <div class="list-content"><a href="./test-loading/index01.html">Loading...</a></div>
-    </div>
-  </div>  
+
+  
+
   <div class="head-box">
     <div class="head"></div>
-    <div class="head-back">
+    <div class="name-back">
       <div class="name">AplysiaLai</div>
     </div>
   </div>
 <script>
 // 获取头像和背景元素
 const head = document.querySelector('.head');
-const headBack = document.querySelector('.head-back');
-
+const headBack = document.querySelector('.name-back');
+const name = document.querySelector('.name');
 // 初始状态为隐藏
 let isActive = false;
-
 // 添加点击事件监听
 head.addEventListener('click', () => {
   // 切换状态
   isActive = !isActive;
-  
   // 根据状态添加或移除active类
   if (isActive) {
     head.classList.add('active');
     headBack.classList.add('active');
+    name.classList.add('active');
   } else {
     head.classList.remove('active');
     headBack.classList.remove('active');
+    name.classList.remove('active');
   }
 });
-// --------------- 表单滑动逻辑 ---------------
-    const formToggle = document.querySelector('.form-toggle');
-    const list = document.querySelector('.list');
-    let formVisible = false;
-    
-    formToggle.addEventListener('click', () => {
-      formVisible = !formVisible;
-      // 切换表单显示/隐藏
-      list.classList.toggle('active', formVisible);
-      // 切换按钮状态（位置+图标旋转）
-      formToggle.classList.toggle('active', formVisible);
-    });
 
+const FormToggle = document.querySelector('.form-toggle')
+let formActive=false
+let leaveTimeout=null
+FormToggle.addEventListener('click',()=>{
+  formActive=!formActive
+  if(formActive){
+    FormToggle.classList.add('active')
+  }else{
+    FormToggle.classList.remove('active')
+}
+})
+// 鼠标进入事件
+formToggle.addEventListener('mouseenter', () => {
+  // 清除离开时的延迟计时器
+  clearTimeout(leaveTimer);
+  // 移除active状态下的样式影响，应用hover效果
+  formToggle.classList.remove('active-hover');
+},300)
+// 鼠标离开事件
+formToggle.addEventListener('mouseleave', () => {
+  // 如果不是激活状态，延迟恢复样式
+  if (!formActive) {
+    leaveTimer = setTimeout(() => {
+      formToggle.classList.remove('hover');
+    },300); // 300ms延迟，可根据需要调整
+  }
+})
    
 </script>
 </body>
