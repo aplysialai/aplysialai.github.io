@@ -24,7 +24,7 @@
     .head-box{
       position: absolute;
       width: 30%;
-      height: 50%;
+      height: 30%;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
@@ -57,7 +57,7 @@
       background-image: url(./resources/head.jpg); /* 使用示例图片 */
       background-size: contain;
       border-radius: 50%;
-      z-index: 2;
+      z-index: 1;
       cursor: pointer; /* 显示点击指针 */
       transition: all 1s ease; /* 添加过渡动画 */
       /* 初始位置 */
@@ -72,7 +72,7 @@
       font-weight: bold;
       padding: 0 20px;
       opacity: 0;
-      transition: all 0.5s ease-in-out; /* 添加过渡动画 */
+      transition: all 1s ease-in-out; /* 添加过渡动画 */
     }
     .name.active{
       opacity: 1;
@@ -81,13 +81,13 @@
     /* 激活状态样式 */
     .head.active {
       /* 头像向左平移50px */
-      transform: translate(calc(-50% - 50px), -50%);
+      transform: translate(calc(-50% - 80px), -50%);
     }
     .name-back.active {
       opacity: 1;
       width: 140px;
       /* 背景框向右平移到头像右侧 */
-      transform: translate(calc(0% + 60px), -50%);
+      transform: translate(calc(0% + 15px), -50%);
     }
     /* --------------- 表单样式优化 --------------- */
 
@@ -97,12 +97,12 @@
       right: 0;
       top: 0; /* 从顶部开始，位于左上角 */
       margin: 20px; /* 与边缘保持间距，避免紧贴 */
-      width: 50px;
-      height: 50px;
+      width: 52px;
+      height: 52px;
       background-color: #ffffff; /* 按钮背景白色 */
       border-radius: 50%; /* 圆形按钮更精致 */
       cursor: pointer;
-      z-index: 10;
+      z-index: 101;
       transition: all 1s ease;
       display: flex;
       align-items: center;
@@ -110,37 +110,30 @@
       border: none; /* 清除默认边框 */
       box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* 轻微阴影增强层次感 */
     }
-    /* 为第一条矩形添加过渡动画 */
-    #first-rect {
-      transition: width 0.2s ease-in-out;
-    }
     /* 为第二条矩形添加过渡动画 */
     #second-rect {
       transform-origin:  center;
-      transition: transform 0.8s ease-in-out,width 0.6s ease-in-out, x 0.6s ease-in-out; /* 增加x轴过渡 */
     }
     #third-rect {
   /* 设置旋转原点为x:4的位置（左边缘） */
       transform-origin: center;
-      transition: transform 0.8s ease-in-out;
     }
     #first-rect, #second-rect, #third-rect {
-      transition: all 0.4s ease-in-out 0.3s; 
-      /* 非悬停在元素内时，过渡动画会延迟 0.3 秒才开始执行 */
+      transition: all 0.5s ease-in-out; 
     }
     /* 鼠标悬停时的动画效果 */
     .form-toggle:hover #first-rect {
       width: 4px; /* 延长到与第二条矩形连接的宽度 */
-      transition: all 0.3s ease-in-out;
+      transition: all 0.5s ease-in-out;
     }
     /* 悬停时隐藏第二条矩形（形成一条线的视觉效果） */
     .form-toggle:hover #second-rect {
       x:4;
       width: 16px;
-      transition: all 0.3s ease-in-out;
+      transition: all 0.5s ease-in-out;
     }
     .form-toggle:hover #third-rect {
-      transition: all 0.4s ease-in-out;
+      transition: all 0.5s ease-in-out;
     }
     .form-toggle:hover #first-rect,
     .form-toggle:hover #second-rect,
@@ -152,7 +145,8 @@
     } 
     /* 激活状态样式 */
     .form-toggle.active {
-      
+      background-color:#000;
+      fill:#1196e3;
     }
     .form-toggle.active #first-rect {
       x:9;
@@ -182,13 +176,73 @@
       width: 8px;
       transform: rotate(45deg);
     }
+    
+    .form-select{
+      position: fixed;
+      display: flex;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 112vh;
+      background-color: #f0f0f0;
+      z-index: 100;
+      transition: 1s ease-in-out;
+      box-shadow: inset 0 0 10px #00000050,
+      0 2px 8px #00000025,
+      0 4px 16px #00000015;
+      border-radius: 0 0 10% 10%;
+    }
+    .form-out{
+      transform: translateY(-100%);
+    }
+
+
+    .logo{
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 0;
+      left: 0;
+      margin: 20px;
+      /* padding: 10px; */
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: #ffffff;
+      z-index: 101;
+      /* inherit 继承父元素的z-index值*/
+      /* 将z-index设为其初始默认值（通常是auto） */
+      transition: all 1s ease;
+    }
+    .logo.active{
+      background-color:#000;
+    }
+    .logo.active svg path{
+      fill: #1196e3;
+      stroke:#1196e3;
+      transition: all 1s ease;
+    }
+    
   </style>
 </head>
 <body>
+  <!-- logo -->
+  <div class="logo">
+    <svg width="50" height="50" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M47.1562 25.9053L27.4004 64.5H32C32.1672 64.5 32.3233 64.5836 32.416 64.7227L34.0459 67.168C34.3818 67.6718 34.3818 68.3282 34.0459 68.832L32.416 71.2773C32.3233 71.4164 32.1672 71.5 32 71.5H24.1055C23.9195 71.5002 23.7492 71.6037 23.6631 71.7686L21.332 76.2314L21.3311 76.2334L16.1152 86.1143C16.2923 86.2901 16.4688 86.4665 16.6484 86.6396C25.5506 95.2221 37.6584 100.5 51 100.5C70.6326 100.5 87.5958 89.0701 95.5986 72.5H51.1562C49.1408 72.5 47.4738 71.01 47.1963 69.0713C47.1696 68.8846 47.1562 68.6935 47.1562 68.5V25.9053ZM21.1309 68.5C20.9459 68.5 20.7762 68.6023 20.6895 68.7656L20.4414 69.2324L13.1797 82.9336C13.8859 83.7691 14.6197 84.5804 15.3789 85.3672L20.4463 75.7666L22.7764 71.3057C23.0349 70.8106 23.547 70.5002 24.1055 70.5H31.0654L29.7324 68.5H21.1309ZM30.6006 68L31.999 70.0977L33.2139 68.2773C33.3258 68.1094 33.3258 67.8906 33.2139 67.7227L31.999 65.9014L30.6006 68ZM67.0459 34.8213C66.5295 33.8179 65.3647 33.3779 64.3408 33.7285L80.0986 63.7676L80.1035 63.7764L81.498 66.5654C82.0909 67.7509 83.3025 68.4999 84.6279 68.5H97.3164C97.5659 67.8399 97.8017 67.1732 98.0234 66.5H86.0957C84.4103 66.4999 82.866 65.5581 82.0947 64.0596L67.0459 34.8213ZM53.6562 21C53.6562 19.7905 52.7974 18.7814 51.6562 18.5498V65C51.6562 66.933 53.2233 68.5 55.1562 68.5H75.3018C76.3696 68.5 77.0937 67.4747 76.8135 66.5H58.1562C55.671 66.5 53.6562 64.4853 53.6562 62V21ZM101.5 51C101.5 56.2772 100.691 61.3664 99.1885 66.1494C98.8667 67.1738 98.513 68.1846 98.1289 69.1797C97.7326 70.2063 97.303 71.217 96.8428 72.21C88.8284 89.5033 71.3158 101.5 51 101.5C37.3893 101.5 25.0352 96.1151 15.9541 87.3604C15.6814 87.0974 15.4113 86.8314 15.1445 86.5625C14.1157 85.5252 13.1316 84.4433 12.1953 83.3203C11.3653 82.3249 10.573 81.2964 9.82031 80.2383C9.72553 80.105 9.6316 79.9711 9.53809 79.8369C3.84104 71.6608 0.5 61.7198 0.5 51C0.5 23.1096 23.1096 0.5 51 0.5C78.8904 0.5 101.5 23.1096 101.5 51ZM47.1562 18.3311C47.1562 18.0955 46.8399 18.0189 46.7324 18.2285L24.5264 61.5264L24.5234 61.5322L23.3389 63.7656C23.1624 64.0986 23.4044 64.5 23.7812 64.5H26.2773L47.1562 23.709V18.3311ZM48.1562 68.5C48.1562 68.646 48.1665 68.7898 48.1865 68.9297C48.3946 70.3828 49.6455 71.5 51.1562 71.5H96.0674C96.3677 70.8408 96.6549 70.1743 96.9268 69.5H84.6279C82.9237 69.4999 81.3658 68.537 80.6035 67.0127L79.209 64.2236L63.2217 33.748L61.6338 30.9678C61.4529 30.6513 61.1332 30.4388 60.7715 30.3936C59.8393 30.277 59.1638 31.2603 59.6064 32.0889L77.5977 65.7646L77.6035 65.7764L77.6777 65.9375C78.3806 67.6109 77.1547 69.5 75.3018 69.5H55.1562C52.671 69.5 50.6562 67.4853 50.6562 65V17.0479C50.656 13.7746 46.5634 12.293 44.4678 14.8076L44.3145 14.9912C44.155 15.1826 44.0167 15.3905 43.9014 15.6113L43.9004 15.6104L10.8135 79.9033C11.3524 80.6513 11.9104 81.3847 12.4893 82.1006L19.8057 68.2979C20.0657 67.8072 20.5755 67.5 21.1309 67.5H29.7324L31.0654 65.5H23.7812C22.6507 65.5 21.926 64.2968 22.4551 63.2979L23.6396 61.0635L45.8418 17.7715C46.4284 16.628 48.1562 17.0458 48.1562 18.3311V68.5ZM51.6562 17.5352C53.3524 17.7778 54.6562 19.2368 54.6562 21V62C54.6562 63.933 56.2233 65.5 58.1562 65.5H76.3223L58.7236 32.5596C57.8991 31.0157 59.1587 29.1843 60.8955 29.4014C61.5696 29.4857 62.1649 29.8819 62.502 30.4717L63.8564 32.8428C65.3762 32.2295 67.1593 32.8574 67.9346 34.3633L82.9844 63.6016C83.5843 64.7671 84.7849 65.4999 86.0957 65.5H98.3408C99.7435 60.9146 100.5 56.0461 100.5 51C100.5 23.6619 78.3381 1.5 51 1.5C23.6619 1.5 1.5 23.6619 1.5 51C1.5 61.3848 4.69911 71.0201 10.1631 78.9795L43.0127 15.1514L43.0146 15.1484C43.163 14.8643 43.3417 14.5968 43.5469 14.3506L43.6992 14.167C46.3936 10.934 51.656 12.8393 51.6562 17.0479V17.5352Z"
+        fill="#000"
+        stroke="#000"
+        stroke-linejoin="round"
+        />
+    </svg>
+  </div>
+
    <!-- --------------- SVG动画按钮 --------------- -->
   <button class="form-toggle">
     <!-- SVG加号图标（加粗效果，无描边纯填充） -->
-    <svg class="toggle-icon" width="24" height="24" viewBox="0 0 24 24">
+    <svg  width="24" height="24" viewBox="0 0 24 24">
       <rect id="first-rect" x="4" y="8" width="10" height="4" rx="2" ry="2"/>
       <!-- 水平线 -->
       <rect id="second-rect" x="16" y="8" width="4" height="4" rx="2" ry="2"/>
@@ -196,8 +250,10 @@
       <rect id="third-rect" x="4" y="16" width="16" height="4" rx="2" ry="2"/> 
     </svg>
   </button>
-  
+  <!-- 上拉展示页面 -->
+  <div class="form-select form-out">
 
+  </div>
   
 
   <div class="head-box">
@@ -230,33 +286,22 @@ head.addEventListener('click', () => {
 });
 
 const FormToggle = document.querySelector('.form-toggle')
+const FormSelect = document.querySelector('.form-select')
+const LogoStyle = document.querySelector('.logo')
 let formActive=false
-let leaveTimeout=null
+let leaveTimer=null
 FormToggle.addEventListener('click',()=>{
   formActive=!formActive
   if(formActive){
     FormToggle.classList.add('active')
+    FormSelect.classList.remove('form-out')
+    LogoStyle.classList.add('active')
   }else{
     FormToggle.classList.remove('active')
+    FormSelect.classList.add('form-out')
+    LogoStyle.classList.remove('active')
 }
-})
-// 鼠标进入事件
-formToggle.addEventListener('mouseenter', () => {
-  // 清除离开时的延迟计时器
-  clearTimeout(leaveTimer);
-  // 移除active状态下的样式影响，应用hover效果
-  formToggle.classList.remove('active-hover');
-},300)
-// 鼠标离开事件
-formToggle.addEventListener('mouseleave', () => {
-  // 如果不是激活状态，延迟恢复样式
-  if (!formActive) {
-    leaveTimer = setTimeout(() => {
-      formToggle.classList.remove('hover');
-    },300); // 300ms延迟，可根据需要调整
-  }
-})
-   
+}) 
 </script>
 </body>
 </html>
