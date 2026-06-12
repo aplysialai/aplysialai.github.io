@@ -79,7 +79,7 @@ class GitHubService {
   // 获取资料索引
   async getMaterialsIndex(): Promise<MaterialsIndex> {
     try {
-      const data = await this.getFile('materials.json')
+      const data = await this.getFile('public/materials.json')
       const content = decodeURIComponent(escape(atob(data.content)))
       return JSON.parse(content)
     } catch (error) {
@@ -95,16 +95,16 @@ class GitHubService {
     }
 
     try {
-      const data = await this.getFile('materials.json')
+      const data = await this.getFile('public/materials.json')
       return this.updateFile(
-        'materials.json',
+        'public/materials.json',
         JSON.stringify(index, null, 2),
         '更新资料索引',
         data.sha
       )
     } catch (error) {
       return this.updateFile(
-        'materials.json',
+        'public/materials.json',
         JSON.stringify(index, null, 2),
         '创建资料索引'
       )
