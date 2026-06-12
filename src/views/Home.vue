@@ -15,7 +15,7 @@
 
         <div class="type-cards">
           <!-- PDF模块 -->
-          <el-card class="type-card pdf-card" shadow="hover">
+          <el-card class="type-card" shadow="hover">
             <template #header>
               <div class="type-header" @click="toggleExpand(category, 'pdf')">
                 <div class="type-info">
@@ -25,44 +25,42 @@
                     {{ getCategoryTypeMaterials(category, 'pdf').length }} 个文件
                   </el-tag>
                 </div>
-                <el-icon class="expand-icon" :class="{ expanded: isExpanded(category, 'pdf') }">
+                <el-icon class="expand-icon" :class="{ expanded: expandedState[`${category}-pdf`] }">
                   <ArrowDown />
                 </el-icon>
               </div>
             </template>
 
-            <el-collapse-transition>
-              <div v-show="isExpanded(category, 'pdf')" class="file-list">
-                <el-empty
-                  v-if="getCategoryTypeMaterials(category, 'pdf').length === 0"
-                  description="暂无PDF文件"
-                  :image-size="40"
-                />
-                <div
-                  v-for="material in getCategoryTypeMaterials(category, 'pdf')"
-                  :key="material.id"
-                  class="file-item"
-                >
-                  <div class="file-info">
-                    <el-icon><Document /></el-icon>
-                    <span class="file-name">{{ material.title }}</span>
-                    <span class="file-size">{{ formatFileSize(material.fileSize) }}</span>
-                  </div>
-                  <el-button
-                    type="primary"
-                    size="small"
-                    :icon="Download"
-                    @click="handleDownload(material)"
-                  >
-                    下载
-                  </el-button>
+            <div v-show="expandedState[`${category}-pdf`]" class="file-list">
+              <el-empty
+                v-if="getCategoryTypeMaterials(category, 'pdf').length === 0"
+                description="暂无PDF文件"
+                :image-size="40"
+              />
+              <div
+                v-for="material in getCategoryTypeMaterials(category, 'pdf')"
+                :key="material.id"
+                class="file-item"
+              >
+                <div class="file-info">
+                  <el-icon class="file-icon"><Document /></el-icon>
+                  <span class="file-name">{{ material.title }}</span>
+                  <span class="file-size">{{ formatFileSize(material.fileSize) }}</span>
                 </div>
+                <el-button
+                  type="primary"
+                  size="small"
+                  :icon="Download"
+                  @click.stop="handleDownload(material)"
+                >
+                  下载
+                </el-button>
               </div>
-            </el-collapse-transition>
+            </div>
           </el-card>
 
           <!-- DOCX模块 -->
-          <el-card class="type-card docx-card" shadow="hover">
+          <el-card class="type-card" shadow="hover">
             <template #header>
               <div class="type-header" @click="toggleExpand(category, 'docx')">
                 <div class="type-info">
@@ -72,40 +70,38 @@
                     {{ getCategoryTypeMaterials(category, 'docx').length }} 个文件
                   </el-tag>
                 </div>
-                <el-icon class="expand-icon" :class="{ expanded: isExpanded(category, 'docx') }">
+                <el-icon class="expand-icon" :class="{ expanded: expandedState[`${category}-docx`] }">
                   <ArrowDown />
                 </el-icon>
               </div>
             </template>
 
-            <el-collapse-transition>
-              <div v-show="isExpanded(category, 'docx')" class="file-list">
-                <el-empty
-                  v-if="getCategoryTypeMaterials(category, 'docx').length === 0"
-                  description="暂无Word文件"
-                  :image-size="40"
-                />
-                <div
-                  v-for="material in getCategoryTypeMaterials(category, 'docx')"
-                  :key="material.id"
-                  class="file-item"
-                >
-                  <div class="file-info">
-                    <el-icon><Notebook /></el-icon>
-                    <span class="file-name">{{ material.title }}</span>
-                    <span class="file-size">{{ formatFileSize(material.fileSize) }}</span>
-                  </div>
-                  <el-button
-                    type="primary"
-                    size="small"
-                    :icon="Download"
-                    @click="handleDownload(material)"
-                  >
-                    下载
-                  </el-button>
+            <div v-show="expandedState[`${category}-docx`]" class="file-list">
+              <el-empty
+                v-if="getCategoryTypeMaterials(category, 'docx').length === 0"
+                description="暂无Word文件"
+                :image-size="40"
+              />
+              <div
+                v-for="material in getCategoryTypeMaterials(category, 'docx')"
+                :key="material.id"
+                class="file-item"
+              >
+                <div class="file-info">
+                  <el-icon class="file-icon"><Notebook /></el-icon>
+                  <span class="file-name">{{ material.title }}</span>
+                  <span class="file-size">{{ formatFileSize(material.fileSize) }}</span>
                 </div>
+                <el-button
+                  type="primary"
+                  size="small"
+                  :icon="Download"
+                  @click.stop="handleDownload(material)"
+                >
+                  下载
+                </el-button>
               </div>
-            </el-collapse-transition>
+            </div>
           </el-card>
         </div>
       </div>
@@ -141,8 +137,9 @@ const loadMaterials = async () => {
 const getCategoryTypeMaterials = (category: string, type: string) => {
   return materials.value.filter(m => {
     if (m.category !== category) return false
-    if (type === 'pdf') return m.fileName.toLowerCase().endsWith('.pdf')
-    if (type === 'docx') return m.fileName.toLowerCase().endsWith('.docx') || m.fileName.toLowerCase().endsWith('.doc')
+    const ext = m.fileName.split('.').pop()?.toLowerCase()
+    if (type === 'pdf') return ext === 'pdf'
+    if (type === 'docx') return ext === 'docx' || ext === 'doc'
     return false
   })
 }
@@ -152,16 +149,31 @@ const toggleExpand = (category: string, type: string) => {
   expandedState[key] = !expandedState[key]
 }
 
-const isExpanded = (category: string, type: string) => {
-  const key = `${category}-${type}`
-  return expandedState[key] || false
-}
-
 const handleDownload = async (material: Material) => {
   try {
-    const url = `https://raw.githubusercontent.com/${config.github.owner}/${config.github.repo}/${config.github.branch}/${material.filePath}`
-    const response = await fetch(url)
-    const blob = await response.blob()
+    // 使用GitHub API获取文件内容（base64）
+    const apiUrl = `https://api.github.com/repos/${config.github.owner}/${config.github.repo}/contents/${material.filePath}`
+    const response = await fetch(apiUrl, {
+      headers: {
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    })
+
+    if (!response.ok) {
+      throw new Error('获取文件失败')
+    }
+
+    const data = await response.json()
+
+    // 解码base64内容
+    const binaryString = atob(data.content)
+    const bytes = new Uint8Array(binaryString.length)
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i)
+    }
+
+    // 创建Blob并下载
+    const blob = new Blob([bytes], { type: 'application/octet-stream' })
     const blobUrl = window.URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.href = blobUrl
@@ -170,6 +182,7 @@ const handleDownload = async (material: Material) => {
     link.click()
     document.body.removeChild(link)
     window.URL.revokeObjectURL(blobUrl)
+
     ElMessage.success(`下载成功: ${material.fileName}`)
   } catch (error) {
     console.error('下载失败:', error)
@@ -240,13 +253,15 @@ onMounted(() => {
 }
 
 .type-card {
-  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .type-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  user-select: none;
 }
 
 .type-info {
@@ -307,6 +322,11 @@ onMounted(() => {
   gap: 10px;
   flex: 1;
   min-width: 0;
+}
+
+.file-icon {
+  font-size: 18px;
+  color: #606266;
 }
 
 .file-name {
