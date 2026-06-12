@@ -59,15 +59,24 @@ class MaterialService {
       throw new Error('资料不存在')
     }
 
-    // 获取文件sha
-    const fileData = await this.github.getFile(material.filePath)
+    try {
+      // 获取文件sha
+      const fileData = await this.github.getFile(material.filePath)
 
-    // 删除文件
-    await this.github.deleteFile(
-      material.filePath,
-      fileData.sha,
-      `删除资料: ${material.title}`
-    )
+      // 删除文件
+      await this.github.deleteFile(
+        material.filePath,
+        fileData.sha,
+        `删除资料: ${material.title}`
+      )
+    } catch (error: any) {
+      // 如果文件不存在（404），只更新索引
+      if (error.response && error.response.status === 404) {
+        console.warn('文件不存在，只更新索引:', material.filePath)
+      } else {
+        throw error
+      }
+    }
 
     // 更新索引
     const updatedMaterials = materials.filter(m => m.id !== id)

@@ -157,16 +157,24 @@ const isExpanded = (category: string, type: string) => {
   return expandedState[key] || false
 }
 
-const handleDownload = (material: Material) => {
-  const url = `https://raw.githubusercontent.com/${config.github.owner}/${config.github.repo}/${config.github.branch}/${material.filePath}`
-  const link = document.createElement('a')
-  link.href = url
-  link.download = material.fileName
-  link.target = '_blank'
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  ElMessage.success(`开始下载: ${material.fileName}`)
+const handleDownload = async (material: Material) => {
+  try {
+    const url = `https://raw.githubusercontent.com/${config.github.owner}/${config.github.repo}/${config.github.branch}/${material.filePath}`
+    const response = await fetch(url)
+    const blob = await response.blob()
+    const blobUrl = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = blobUrl
+    link.download = material.fileName
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(blobUrl)
+    ElMessage.success(`下载成功: ${material.fileName}`)
+  } catch (error) {
+    console.error('下载失败:', error)
+    ElMessage.error('下载失败，请重试')
+  }
 }
 
 const getCategoryType = (category: string) => {
