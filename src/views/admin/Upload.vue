@@ -10,20 +10,10 @@
         ref="formRef"
         :model="form"
         :rules="rules"
-        label-width="100px"
         label-position="top"
       >
-        <el-form-item label="资料标题" prop="title">
-          <el-input
-            v-model="form.title"
-            placeholder="请输入资料标题"
-            maxlength="100"
-            show-word-limit
-          />
-        </el-form-item>
-
-        <el-form-item label="资料分类" prop="category">
-          <el-select v-model="form.category" placeholder="请选择分类" style="width: 100%">
+        <el-form-item label="选择分类" prop="category">
+          <el-select v-model="form.category" placeholder="请选择学科分类" size="large" style="width: 100%">
             <el-option
               v-for="cat in categories"
               :key="cat"
@@ -33,25 +23,14 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="资料描述" prop="description">
-          <el-input
-            v-model="form.description"
-            type="textarea"
-            :rows="4"
-            placeholder="请输入资料描述"
-            maxlength="500"
-            show-word-limit
-          />
-        </el-form-item>
-
-        <el-form-item label="上传文件" prop="file">
+        <el-form-item label="选择文件" prop="files">
           <el-upload
             ref="uploadRef"
             :auto-upload="false"
-            :limit="1"
             :on-change="handleFileChange"
             :on-remove="handleFileRemove"
             :before-upload="beforeUpload"
+            multiple
             drag
           >
             <el-icon class="el-icon--upload"><UploadFilled /></el-icon>
@@ -60,7 +39,7 @@
             </div>
             <template #tip>
               <div class="el-upload__tip">
-                支持 PDF、Word、PPT、图片格式，文件大小不超过 20MB
+                支持 PDF、DOC、DOCX 格式，文件大小不超过 20MB，可批量上传
               </div>
             </template>
           </el-upload>
@@ -72,10 +51,11 @@
             :loading="uploading"
             @click="handleUpload"
             size="large"
+            :disabled="form.files.length === 0"
           >
-            上传资料
+            上传 ({{ form.files.length }} 个文件)
           </el-button>
-          <el-button @click="resetForm" size="large">重置</el-button>
+          <el-button @click="resetForm" size="large">清空</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -99,45 +79,49 @@ const uploading = ref(false)
 const categories = config.categories
 
 const form = reactive({
-  title: '',
   category: '',
-  description: '',
-  file: null as File | null
+  files: [] as File[]
 })
 
 const rules = {
-  title: [
-    { required: true, message: '请输入资料标题', trigger: 'blur' }
-  ],
   category: [
-    { required: true, message: '请选择资料分类', trigger: 'change' }
-  ],
-  file: [
-    { required: true, message: '请上传文件', trigger: 'change' }
+    { required: true, message: '请选择学科分类', trigger: 'change' }
   ]
 }
 
+const allowedTypes = [
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+]
+
 const handleFileChange = (uploadFile: UploadFile) => {
   if (uploadFile.raw) {
-    form.file = uploadFile.raw
+    form.files.push(uploadFile.raw)
   }
 }
 
-const handleFileRemove = () => {
-  form.file = null
+const handleFileRemove = (uploadFile: UploadFile) => {
+  const index = form.files.findIndex(f => f.name === uploadFile.name)
+  if (index !== -1) {
+    form.files.splice(index, 1)
+  }
 }
 
 const beforeUpload = (file: File) => {
-  const isValidType = config.allowedFileTypes.includes(file.type)
+  const isValidType = allowedTypes.includes(file.type) ||
+    file.name.endsWith('.pdf') ||
+    file.name.endsWith('.doc') ||
+    file.name.endsWith('.docx')
   const isValidSize = file.size <= config.maxFileSize
 
   if (!isValidType) {
-    ElMessage.error('不支持的文件类型')
+    ElMessage.error(`${file.name} 不是支持的文件类型`)
     return false
   }
 
   if (!isValidSize) {
-    ElMessage.error('文件大小不能超过20MB')
+    ElMessage.error(`${file.name} 超过20MB限制`)
     return false
   }
 
@@ -150,12 +134,15 @@ const handleUpload = async () => {
   await formRef.value.validate(async (valid) => {
     if (!valid) return
 
-    if (!form.file) {
-      ElMessage.error('请上传文件')
+    if (form.files.length === 0) {
+      ElMessage.error('请选择文件')
       return
     }
 
     uploading.value = true
+    let successCount = 0
+    let failCount = 0
+
     try {
       const token = localStorage.getItem('github_token')
       if (!token) {
@@ -164,15 +151,38 @@ const handleUpload = async () => {
       }
 
       const materialService = new MaterialService(token)
-      await materialService.uploadMaterial(
-        form.title,
-        form.description,
-        form.category,
-        form.file
-      )
 
-      ElMessage.success('上传成功！')
-      resetForm()
+      for (const file of form.files) {
+        try {
+          // 从文件名中提取标题（去掉扩展名）
+          const title = file.name.replace(/\.(pdf|doc|docx)$/i, '')
+
+          // 根据文件类型决定子文件夹
+          let subFolder = 'pdf'
+          if (file.name.endsWith('.doc') || file.name.endsWith('.docx')) {
+            subFolder = 'docx'
+          }
+
+          await materialService.uploadMaterial(
+            title,
+            `${form.category} - ${title}`,
+            form.category,
+            file,
+            subFolder
+          )
+          successCount++
+        } catch (error) {
+          console.error(`上传 ${file.name} 失败:`, error)
+          failCount++
+        }
+      }
+
+      if (successCount > 0) {
+        ElMessage.success(`成功上传 ${successCount} 个文件${failCount > 0 ? `，${failCount} 个失败` : ''}`)
+        resetForm()
+      } else {
+        ElMessage.error('上传失败')
+      }
     } catch (error) {
       console.error('上传失败:', error)
       ElMessage.error('上传失败，请重试')
@@ -185,7 +195,7 @@ const handleUpload = async () => {
 const resetForm = () => {
   formRef.value?.resetFields()
   uploadRef.value?.clearFiles()
-  form.file = null
+  form.files = []
 }
 
 const goBack = () => {

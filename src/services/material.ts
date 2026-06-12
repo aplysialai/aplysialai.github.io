@@ -20,11 +20,12 @@ class MaterialService {
     title: string,
     description: string,
     category: string,
-    file: File
+    file: File,
+    subFolder: string = 'pdf'
   ): Promise<Material> {
     const id = Date.now().toString()
     const fileName = file.name
-    const filePath = `materials/${category}/${fileName}`
+    const filePath = `materials/${category}/${subFolder}/${fileName}`
 
     // 上传文件
     await this.github.uploadFile(filePath, file, `上传资料: ${title}`)

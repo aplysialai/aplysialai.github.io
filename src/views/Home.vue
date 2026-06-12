@@ -11,41 +11,101 @@
           <el-tag :type="getCategoryType(category)" size="large">
             {{ category }}
           </el-tag>
-          <span class="category-count">{{ getCategoryMaterials(category).length }} 个资料</span>
         </div>
 
-        <el-empty
-          v-if="getCategoryMaterials(category).length === 0 && !loading"
-          description="暂无资料"
-          :image-size="60"
-        />
-
-        <div class="materials-grid">
-          <el-card
-            v-for="material in getCategoryMaterials(category)"
-            :key="material.id"
-            class="material-card"
-            shadow="hover"
-            @click="goToDetail(material)"
-          >
-            <div class="card-content">
-              <h3 class="title">{{ material.title }}</h3>
-              <p class="description">{{ material.description }}</p>
-
-              <div class="card-footer">
-                <span class="file-info">
-                  <el-icon><Document /></el-icon>
-                  {{ material.fileName }}
-                </span>
-                <span class="file-size">
-                  {{ formatFileSize(material.fileSize) }}
-                </span>
-                <span class="downloads">
-                  <el-icon><Download /></el-icon>
-                  {{ material.downloads }}
-                </span>
+        <div class="type-cards">
+          <!-- PDF模块 -->
+          <el-card class="type-card pdf-card" shadow="hover">
+            <template #header>
+              <div class="type-header" @click="toggleExpand(category, 'pdf')">
+                <div class="type-info">
+                  <el-icon class="type-icon pdf-icon"><Document /></el-icon>
+                  <span class="type-title">PDF 文档</span>
+                  <el-tag size="small" type="info">
+                    {{ getCategoryTypeMaterials(category, 'pdf').length }} 个文件
+                  </el-tag>
+                </div>
+                <el-icon class="expand-icon" :class="{ expanded: isExpanded(category, 'pdf') }">
+                  <ArrowDown />
+                </el-icon>
               </div>
-            </div>
+            </template>
+
+            <el-collapse-transition>
+              <div v-show="isExpanded(category, 'pdf')" class="file-list">
+                <el-empty
+                  v-if="getCategoryTypeMaterials(category, 'pdf').length === 0"
+                  description="暂无PDF文件"
+                  :image-size="40"
+                />
+                <div
+                  v-for="material in getCategoryTypeMaterials(category, 'pdf')"
+                  :key="material.id"
+                  class="file-item"
+                >
+                  <div class="file-info">
+                    <el-icon><Document /></el-icon>
+                    <span class="file-name">{{ material.title }}</span>
+                    <span class="file-size">{{ formatFileSize(material.fileSize) }}</span>
+                  </div>
+                  <el-button
+                    type="primary"
+                    size="small"
+                    :icon="Download"
+                    @click="handleDownload(material)"
+                  >
+                    下载
+                  </el-button>
+                </div>
+              </div>
+            </el-collapse-transition>
+          </el-card>
+
+          <!-- DOCX模块 -->
+          <el-card class="type-card docx-card" shadow="hover">
+            <template #header>
+              <div class="type-header" @click="toggleExpand(category, 'docx')">
+                <div class="type-info">
+                  <el-icon class="type-icon docx-icon"><Notebook /></el-icon>
+                  <span class="type-title">Word 文档</span>
+                  <el-tag size="small" type="info">
+                    {{ getCategoryTypeMaterials(category, 'docx').length }} 个文件
+                  </el-tag>
+                </div>
+                <el-icon class="expand-icon" :class="{ expanded: isExpanded(category, 'docx') }">
+                  <ArrowDown />
+                </el-icon>
+              </div>
+            </template>
+
+            <el-collapse-transition>
+              <div v-show="isExpanded(category, 'docx')" class="file-list">
+                <el-empty
+                  v-if="getCategoryTypeMaterials(category, 'docx').length === 0"
+                  description="暂无Word文件"
+                  :image-size="40"
+                />
+                <div
+                  v-for="material in getCategoryTypeMaterials(category, 'docx')"
+                  :key="material.id"
+                  class="file-item"
+                >
+                  <div class="file-info">
+                    <el-icon><Notebook /></el-icon>
+                    <span class="file-name">{{ material.title }}</span>
+                    <span class="file-size">{{ formatFileSize(material.fileSize) }}</span>
+                  </div>
+                  <el-button
+                    type="primary"
+                    size="small"
+                    :icon="Download"
+                    @click="handleDownload(material)"
+                  >
+                    下载
+                  </el-button>
+                </div>
+              </div>
+            </el-collapse-transition>
           </el-card>
         </div>
       </div>
@@ -54,19 +114,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { Document, Download } from '@element-plus/icons-vue'
+import { ref, reactive, onMounted } from 'vue'
+import { Document, Notebook, Download, ArrowDown } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 import { config } from '../config'
 import type { Material } from '../types'
 
-const router = useRouter()
 const materials = ref<Material[]>([])
 const loading = ref(true)
+const expandedState = reactive<Record<string, boolean>>({})
 
 const categories = config.categories
 
-// 从public目录加载资料索引
 const loadMaterials = async () => {
   try {
     const response = await fetch('/materials.json')
@@ -79,13 +138,35 @@ const loadMaterials = async () => {
   }
 }
 
-// 获取某个分类的资料
-const getCategoryMaterials = (category: string) => {
-  return materials.value.filter(m => m.category === category)
+const getCategoryTypeMaterials = (category: string, type: string) => {
+  return materials.value.filter(m => {
+    if (m.category !== category) return false
+    if (type === 'pdf') return m.fileName.toLowerCase().endsWith('.pdf')
+    if (type === 'docx') return m.fileName.toLowerCase().endsWith('.docx') || m.fileName.toLowerCase().endsWith('.doc')
+    return false
+  })
 }
 
-const goToDetail = (material: Material) => {
-  router.push(`/material/${material.id}`)
+const toggleExpand = (category: string, type: string) => {
+  const key = `${category}-${type}`
+  expandedState[key] = !expandedState[key]
+}
+
+const isExpanded = (category: string, type: string) => {
+  const key = `${category}-${type}`
+  return expandedState[key] || false
+}
+
+const handleDownload = (material: Material) => {
+  const url = `https://raw.githubusercontent.com/${config.github.owner}/${config.github.repo}/${config.github.branch}/${material.filePath}`
+  const link = document.createElement('a')
+  link.href = url
+  link.download = material.fileName
+  link.target = '_blank'
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  ElMessage.success(`开始下载: ${material.fileName}`)
 }
 
 const getCategoryType = (category: string) => {
@@ -139,103 +220,108 @@ onMounted(() => {
 }
 
 .category-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   margin-bottom: 20px;
   padding-bottom: 12px;
   border-bottom: 2px solid #ebeef5;
 }
 
-.category-count {
-  color: #909399;
-  font-size: 0.9rem;
-}
-
-.materials-grid {
+.type-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
 }
 
-.material-card {
+.type-card {
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.material-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
-
-.card-content {
+.type-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.type-info {
+  display: flex;
+  align-items: center;
   gap: 12px;
 }
 
-.title {
+.type-icon {
+  font-size: 24px;
+}
+
+.pdf-icon {
+  color: #e74c3c;
+}
+
+.docx-icon {
+  color: #3498db;
+}
+
+.type-title {
   font-size: 1.1rem;
+  font-weight: 600;
   color: #303133;
-  margin: 0;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
-.description {
-  color: #606266;
-  font-size: 0.9rem;
-  margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-height: 1.5;
-}
-
-.card-footer {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.expand-icon {
+  transition: transform 0.3s;
   color: #909399;
-  font-size: 0.8rem;
-  padding-top: 12px;
-  border-top: 1px solid #ebeef5;
+}
+
+.expand-icon.expanded {
+  transform: rotate(180deg);
+}
+
+.file-list {
+  padding-top: 10px;
+}
+
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background: #f5f7fa;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.file-item:hover {
+  background: #e6e8eb;
 }
 
 .file-info {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 10px;
   flex: 1;
+  min-width: 0;
+}
+
+.file-name {
+  font-size: 0.95rem;
+  color: #303133;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.file-size,
-.downloads {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+.file-size {
+  font-size: 0.8rem;
+  color: #909399;
   white-space: nowrap;
 }
 
 @media (max-width: 768px) {
-  .materials-grid {
+  .type-cards {
     grid-template-columns: 1fr;
   }
 
   .header h1 {
     font-size: 1.8rem;
-  }
-
-  .card-footer {
-    flex-wrap: wrap;
-    gap: 8px;
   }
 }
 </style>
