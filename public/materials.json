@@ -1,17 +1,6 @@
 {
   "materials": [
     {
-      "id": "3",
-      "title": "第三章",
-      "description": "软件设计与体系结构 第三章课件",
-      "category": "软件设计与体系结构",
-      "fileName": "第三章.pdf",
-      "filePath": "materials/软件设计与体系结构/pdf/第三章.pdf",
-      "fileSize": 1048576,
-      "downloads": 0,
-      "createdAt": "2026-06-12T00:00:00.000Z"
-    },
-    {
       "id": "4",
       "title": "第四章",
       "description": "软件设计与体系结构 第四章课件",
@@ -111,5 +100,5 @@
       "createdAt": "2026-06-12T00:00:00.000Z"
     }
   ],
-  "lastUpdated": "2026-06-12T15:18:38.548Z"
+  "lastUpdated": "2026-06-12T15:18:40.490Z"
 }
