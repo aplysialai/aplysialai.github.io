@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "homepage": "https://aplysialai.github.io",
+  "homepage": "https://aplysia.site",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
