@@ -1,0 +1,38 @@
+{
+  "materials": [
+    {
+      "id": "1",
+      "title": "高等数学期末复习资料",
+      "description": "包含微积分、线性代数等重点知识点整理，适合期末复习使用。",
+      "category": "数学",
+      "fileName": "高等数学复习.pdf",
+      "filePath": "materials/数学/高等数学复习.pdf",
+      "fileSize": 1048576,
+      "downloads": 156,
+      "createdAt": "2026-06-01T10:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "title": "大学英语四级词汇",
+      "description": "四级高频词汇整理，包含例句和用法说明。",
+      "category": "英语",
+      "fileName": "英语四级词汇.pdf",
+      "filePath": "materials/英语/英语四级词汇.pdf",
+      "fileSize": 2097152,
+      "downloads": 234,
+      "createdAt": "2026-06-02T14:30:00.000Z"
+    },
+    {
+      "id": "3",
+      "title": "数据结构与算法笔记",
+      "description": "常见数据结构和算法的实现代码及复杂度分析。",
+      "category": "计算机",
+      "fileName": "数据结构笔记.pdf",
+      "filePath": "materials/计算机/数据结构笔记.pdf",
+      "fileSize": 3145728,
+      "downloads": 189,
+      "createdAt": "2026-06-03T09:15:00.000Z"
+    }
+  ],
+  "lastUpdated": "2026-06-12T00:00:00.000Z"
+}
