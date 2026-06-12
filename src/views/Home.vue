@@ -151,29 +151,16 @@ const toggleExpand = (category: string, type: string) => {
 
 const handleDownload = async (material: Material) => {
   try {
-    // 使用GitHub API获取文件内容（base64）
-    const apiUrl = `https://api.github.com/repos/${config.github.owner}/${config.github.repo}/contents/${material.filePath}`
-    const response = await fetch(apiUrl, {
-      headers: {
-        'Accept': 'application/vnd.github.v3+json'
-      }
-    })
+    // 使用jsDelivr CDN下载（公开仓库无需认证）
+    const url = `https://cdn.jsdelivr.net/gh/${config.github.owner}/${config.github.repo}@${config.github.branch}/${material.filePath}`
+
+    const response = await fetch(url)
 
     if (!response.ok) {
       throw new Error('获取文件失败')
     }
 
-    const data = await response.json()
-
-    // 解码base64内容
-    const binaryString = atob(data.content)
-    const bytes = new Uint8Array(binaryString.length)
-    for (let i = 0; i < binaryString.length; i++) {
-      bytes[i] = binaryString.charCodeAt(i)
-    }
-
-    // 创建Blob并下载
-    const blob = new Blob([bytes], { type: 'application/octet-stream' })
+    const blob = await response.blob()
     const blobUrl = window.URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.href = blobUrl
@@ -186,7 +173,10 @@ const handleDownload = async (material: Material) => {
     ElMessage.success(`下载成功: ${material.fileName}`)
   } catch (error) {
     console.error('下载失败:', error)
-    ElMessage.error('下载失败，请重试')
+    // 备用方案：直接打开链接
+    const fallbackUrl = `https://raw.githubusercontent.com/${config.github.owner}/${config.github.repo}/${config.github.branch}/${material.filePath}`
+    window.open(fallbackUrl, '_blank')
+    ElMessage.info('正在打开文件...')
   }
 }
 
