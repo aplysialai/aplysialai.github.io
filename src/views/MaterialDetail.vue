@@ -98,13 +98,12 @@ const goBack = () => {
 
 const getCategoryType = (category: string) => {
   const types: Record<string, string> = {
-    '数学': 'primary',
-    '英语': 'success',
-    '物理': 'warning',
-    '化学': 'danger',
-    '计算机': 'info'
+    '计算机系统基础': 'primary',
+    '软件设计模式': 'success',
+    '软件设计与体系结构': 'warning',
+    '软件质量保证与测试': 'danger'
   }
-  return types[category] || ''
+  return types[category] || 'info'
 }
 
 const formatFileSize = (bytes: number) => {

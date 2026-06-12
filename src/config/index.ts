@@ -1,23 +1,16 @@
 // GitHub配置
 export const config = {
   github: {
-    owner: 'aplysialai',  // GitHub用户名
-    repo: 'FR-site',      // 仓库名
+    owner: 'aplysialai',          // GitHub用户名
+    repo: 'aplysialai.github.io', // 仓库名
     branch: 'main'
   },
   // 资料分类
   categories: [
-    '数学',
-    '英语',
-    '物理',
-    '化学',
-    '计算机',
-    '经济学',
-    '管理学',
-    '法学',
-    '文学',
-    '历史',
-    '其他'
+    '计算机系统基础',
+    '软件设计模式',
+    '软件设计与体系结构',
+    '软件质量保证与测试'
   ],
   // 支持的文件类型
   allowedFileTypes: [

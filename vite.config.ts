@@ -4,14 +4,14 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/FR-site/',  // GitHub Pages路径
+  base: '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src')
     }
   },
   server: {
-    port: 3000,
+    port: 3005,
     open: true
   },
   build: {

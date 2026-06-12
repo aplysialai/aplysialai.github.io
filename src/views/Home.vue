@@ -5,94 +5,66 @@
       <p>所有资料免费下载，祝你考试顺利！</p>
     </div>
 
-    <div class="search-bar">
-      <el-input
-        v-model="searchText"
-        placeholder="搜索资料..."
-        clearable
-        size="large"
-        @input="handleSearch"
-      >
-        <template #prefix>
-          <el-icon><Search /></el-icon>
-        </template>
-      </el-input>
-
-      <el-select
-        v-model="selectedCategory"
-        placeholder="选择分类"
-        clearable
-        size="large"
-        @change="handleSearch"
-      >
-        <el-option
-          v-for="cat in categories"
-          :key="cat"
-          :label="cat"
-          :value="cat"
-        />
-      </el-select>
-    </div>
-
     <div class="content" v-loading="loading">
-      <el-empty v-if="filteredMaterials.length === 0 && !loading" description="暂无资料" />
+      <div v-for="category in categories" :key="category" class="category-section">
+        <div class="category-header">
+          <el-tag :type="getCategoryType(category)" size="large">
+            {{ category }}
+          </el-tag>
+          <span class="category-count">{{ getCategoryMaterials(category).length }} 个资料</span>
+        </div>
 
-      <div class="materials-grid">
-        <el-card
-          v-for="material in filteredMaterials"
-          :key="material.id"
-          class="material-card"
-          shadow="hover"
-          @click="goToDetail(material)"
-        >
-          <div class="card-content">
-            <div class="card-header">
-              <el-tag :type="getCategoryType(material.category)" size="small">
-                {{ material.category }}
-              </el-tag>
-              <span class="downloads">
-                <el-icon><Download /></el-icon>
-                {{ material.downloads }}
-              </span>
+        <el-empty
+          v-if="getCategoryMaterials(category).length === 0 && !loading"
+          description="暂无资料"
+          :image-size="60"
+        />
+
+        <div class="materials-grid">
+          <el-card
+            v-for="material in getCategoryMaterials(category)"
+            :key="material.id"
+            class="material-card"
+            shadow="hover"
+            @click="goToDetail(material)"
+          >
+            <div class="card-content">
+              <h3 class="title">{{ material.title }}</h3>
+              <p class="description">{{ material.description }}</p>
+
+              <div class="card-footer">
+                <span class="file-info">
+                  <el-icon><Document /></el-icon>
+                  {{ material.fileName }}
+                </span>
+                <span class="file-size">
+                  {{ formatFileSize(material.fileSize) }}
+                </span>
+                <span class="downloads">
+                  <el-icon><Download /></el-icon>
+                  {{ material.downloads }}
+                </span>
+              </div>
             </div>
-
-            <h3 class="title">{{ material.title }}</h3>
-            <p class="description">{{ material.description }}</p>
-
-            <div class="card-footer">
-              <span class="file-info">
-                {{ formatFileSize(material.fileSize) }}
-              </span>
-              <span class="date">
-                {{ formatDate(material.createdAt) }}
-              </span>
-            </div>
-          </div>
-        </el-card>
+          </el-card>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { Search, Download } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
-import MaterialService from '../services/material'
+import { Document, Download } from '@element-plus/icons-vue'
 import { config } from '../config'
 import type { Material } from '../types'
 
 const router = useRouter()
 const materials = ref<Material[]>([])
-const searchText = ref('')
-const selectedCategory = ref('')
 const loading = ref(true)
 
 const categories = config.categories
-
-// 创建一个不需要token的MaterialService实例（只用于读取）
-const materialService = new MaterialService('')
 
 // 从public目录加载资料索引
 const loadMaterials = async () => {
@@ -102,34 +74,14 @@ const loadMaterials = async () => {
     materials.value = data.materials || []
   } catch (error) {
     console.error('加载资料失败:', error)
-    ElMessage.error('加载资料失败')
   } finally {
     loading.value = false
   }
 }
 
-// 过滤资料
-const filteredMaterials = computed(() => {
-  let result = materials.value
-
-  if (searchText.value) {
-    const search = searchText.value.toLowerCase()
-    result = result.filter(
-      m =>
-        m.title.toLowerCase().includes(search) ||
-        m.description.toLowerCase().includes(search)
-    )
-  }
-
-  if (selectedCategory.value) {
-    result = result.filter(m => m.category === selectedCategory.value)
-  }
-
-  return result
-})
-
-const handleSearch = () => {
-  // 搜索逻辑已在computed中处理
+// 获取某个分类的资料
+const getCategoryMaterials = (category: string) => {
+  return materials.value.filter(m => m.category === category)
 }
 
 const goToDetail = (material: Material) => {
@@ -138,13 +90,12 @@ const goToDetail = (material: Material) => {
 
 const getCategoryType = (category: string) => {
   const types: Record<string, string> = {
-    '数学': 'primary',
-    '英语': 'success',
-    '物理': 'warning',
-    '化学': 'danger',
-    '计算机': 'info'
+    '计算机系统基础': 'primary',
+    '软件设计模式': 'success',
+    '软件设计与体系结构': 'warning',
+    '软件质量保证与测试': 'danger'
   }
-  return types[category] || ''
+  return types[category] || 'info'
 }
 
 const formatFileSize = (bytes: number) => {
@@ -153,11 +104,6 @@ const formatFileSize = (bytes: number) => {
   const sizes = ['B', 'KB', 'MB', 'GB']
   const i = Math.floor(Math.log(bytes) / Math.log(k))
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
-}
-
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString)
-  return date.toLocaleDateString('zh-CN')
 }
 
 onMounted(() => {
@@ -174,7 +120,7 @@ onMounted(() => {
 
 .header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .header h1 {
@@ -188,33 +134,38 @@ onMounted(() => {
   color: #606266;
 }
 
-.search-bar {
+.category-section {
+  margin-bottom: 40px;
+}
+
+.category-header {
   display: flex;
-  gap: 16px;
-  margin-bottom: 30px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #ebeef5;
 }
 
-.search-bar .el-input {
-  flex: 1;
-}
-
-.search-bar .el-select {
-  width: 200px;
+.category-count {
+  color: #909399;
+  font-size: 0.9rem;
 }
 
 .materials-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
 }
 
 .material-card {
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .material-card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .card-content {
@@ -223,25 +174,15 @@ onMounted(() => {
   gap: 12px;
 }
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.downloads {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: #909399;
-  font-size: 0.9rem;
-}
-
 .title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #303133;
   margin: 0;
   line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .description {
@@ -252,31 +193,49 @@ onMounted(() => {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  line-height: 1.5;
 }
 
 .card-footer {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 16px;
   color: #909399;
   font-size: 0.8rem;
+  padding-top: 12px;
+  border-top: 1px solid #ebeef5;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-size,
+.downloads {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
 }
 
 @media (max-width: 768px) {
-  .search-bar {
-    flex-direction: column;
-  }
-
-  .search-bar .el-select {
-    width: 100%;
-  }
-
   .materials-grid {
     grid-template-columns: 1fr;
   }
 
   .header h1 {
     font-size: 1.8rem;
+  }
+
+  .card-footer {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }
 </style>
