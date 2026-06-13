@@ -1,93 +1,27 @@
 {
   "materials": [
     {
-      "id": "5",
-      "title": "第五章",
-      "description": "软件设计与体系结构 第五章课件",
-      "category": "软件设计与体系结构",
-      "fileName": "第五章.pdf",
-      "filePath": "materials/软件设计与体系结构/pdf/第五章.pdf",
-      "fileSize": 1048576,
-      "downloads": 0,
-      "createdAt": "2026-06-12T00:00:00.000Z"
-    },
-    {
-      "id": "6",
-      "title": "第六章",
-      "description": "软件设计与体系结构 第六章课件",
-      "category": "软件设计与体系结构",
-      "fileName": "第六章.pdf",
-      "filePath": "materials/软件设计与体系结构/pdf/第六章.pdf",
-      "fileSize": 1048576,
-      "downloads": 0,
-      "createdAt": "2026-06-12T00:00:00.000Z"
-    },
-    {
-      "id": "7",
+      "id": "1",
       "title": "第一章",
       "description": "软件设计与体系结构 第一章课件",
       "category": "软件设计与体系结构",
-      "fileName": "第一章.docx",
-      "filePath": "materials/软件设计与体系结构/docx/第一章.docx",
-      "fileSize": 37574,
+      "fileName": "第一章.pdf",
+      "filePath": "materials/软件设计与体系结构/pdf/第一章.pdf",
+      "fileSize": 85685,
       "downloads": 0,
-      "createdAt": "2026-06-12T00:00:00.000Z"
+      "createdAt": "2026-06-13T00:00:00.000Z"
     },
     {
-      "id": "8",
-      "title": "第二章",
-      "description": "软件设计与体系结构 第二章课件",
-      "category": "软件设计与体系结构",
-      "fileName": "第二章.docx",
-      "filePath": "materials/软件设计与体系结构/docx/第二章.docx",
-      "fileSize": 37457,
-      "downloads": 0,
-      "createdAt": "2026-06-12T00:00:00.000Z"
-    },
-    {
-      "id": "9",
+      "id": "2",
       "title": "第三章",
       "description": "软件设计与体系结构 第三章课件",
       "category": "软件设计与体系结构",
-      "fileName": "第三章.docx",
-      "filePath": "materials/软件设计与体系结构/docx/第三章.docx",
-      "fileSize": 38370,
+      "fileName": "第三章.pdf",
+      "filePath": "materials/软件设计与体系结构/pdf/第三章.pdf",
+      "fileSize": 101666,
       "downloads": 0,
-      "createdAt": "2026-06-12T00:00:00.000Z"
-    },
-    {
-      "id": "10",
-      "title": "第四章",
-      "description": "软件设计与体系结构 第四章课件",
-      "category": "软件设计与体系结构",
-      "fileName": "第四章.docx",
-      "filePath": "materials/软件设计与体系结构/docx/第四章.docx",
-      "fileSize": 38649,
-      "downloads": 0,
-      "createdAt": "2026-06-12T00:00:00.000Z"
-    },
-    {
-      "id": "11",
-      "title": "第五章",
-      "description": "软件设计与体系结构 第五章课件",
-      "category": "软件设计与体系结构",
-      "fileName": "第五章.docx",
-      "filePath": "materials/软件设计与体系结构/docx/第五章.docx",
-      "fileSize": 39166,
-      "downloads": 0,
-      "createdAt": "2026-06-12T00:00:00.000Z"
-    },
-    {
-      "id": "12",
-      "title": "第六章",
-      "description": "软件设计与体系结构 第六章课件",
-      "category": "软件设计与体系结构",
-      "fileName": "第六章.docx",
-      "filePath": "materials/软件设计与体系结构/docx/第六章.docx",
-      "fileSize": 38882,
-      "downloads": 0,
-      "createdAt": "2026-06-12T00:00:00.000Z"
+      "createdAt": "2026-06-13T00:00:00.000Z"
     }
   ],
-  "lastUpdated": "2026-06-12T15:18:42.421Z"
+  "lastUpdated": "2026-06-13T00:00:00.000Z"
 }
