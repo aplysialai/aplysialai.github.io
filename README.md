@@ -83,20 +83,25 @@ FR-site/
 └── tsconfig.json
 ```
 
-## 🔑 管理员设置
+## 🔑 管理后台登录
 
-### 1. 创建GitHub Token
+### 1. 创建 GitHub Fine-grained Token
 
-1. 访问 [GitHub Settings](https://github.com/settings/tokens?type=beta)
-2. 创建新的 Fine-grained token
-3. 设置仓库权限：Contents: Read and write
-4. 复制Token
+1. 登录 GitHub，访问 [Personal Access Tokens (Fine-grained)](https://github.com/settings/tokens?type=beta)
+2. 点击 **Generate new token**
+3. 填写 Token 名称（如 `FR-site-admin`），设置过期时间
+4. 在 **Repository access** 中选择 **Only select repositories**，并选择本项目仓库
+5. 在 **Permissions → Repository permissions** 中，将 **Contents** 设置为 **Read and write**
+6. 点击 **Generate token**，**立即复制并保存** Token（页面刷新后无法再次查看）
 
 ### 2. 登录管理后台
 
-1. 访问 `/admin/login`
-2. 输入GitHub Token
-3. 开始管理资料
+1. 在浏览器中访问 `/admin/login`（本地开发为 `http://localhost:3005/admin/login`）
+2. 在输入框中粘贴上一步创建的 GitHub Token
+3. 点击 **登录** 按钮，系统会自动验证 Token 有效性
+4. 验证通过后跳转至管理后台（`/admin/dashboard`），即可上传、删除和管理资料
+
+> **注意**：Token 保存在浏览器 localStorage 中，清除浏览器数据后需要重新登录。
 
 ## 📊 功能说明
 
@@ -154,4 +159,4 @@ MIT License
 
 ---
 
-**最后更新**: 2026年6月12日
+**最后更新**: 2026年6月13日
