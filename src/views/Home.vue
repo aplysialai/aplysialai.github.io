@@ -8,9 +8,19 @@
     <div class="content" v-loading="loading">
       <div v-for="category in categories" :key="category" class="category-section">
         <div class="category-header">
-          <el-tag :type="getCategoryType(category)" size="large">
-            {{ category }}
-          </el-tag>
+          <div class="category-title-row">
+            <el-tag :type="getCategoryType(category)" size="large">
+              {{ category }}
+            </el-tag>
+            <el-button
+              type="warning"
+              size="small"
+              :icon="Reading"
+              @click="handleDownloadKnowledgePoint(category)"
+            >
+              复习知识点
+            </el-button>
+          </div>
         </div>
 
         <div class="type-cards">
@@ -201,7 +211,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { Document, Notebook, Download, ArrowDown } from '@element-plus/icons-vue'
+import { Document, Notebook, Download, ArrowDown, Reading } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { config } from '../config'
 import type { Material } from '../types'
@@ -271,6 +281,37 @@ const handleDownload = async (material: Material) => {
   }
 }
 
+const handleDownloadKnowledgePoint = async (category: string) => {
+  try {
+    const fileName = '期末复习知识点(含导航).pdf'
+    const filePath = `materials/${category}/${fileName}`
+    const url = `https://cdn.jsdelivr.net/gh/${config.github.owner}/${config.github.repo}@${config.github.branch}/${filePath}`
+
+    const response = await fetch(url)
+
+    if (!response.ok) {
+      throw new Error('获取文件失败')
+    }
+
+    const blob = await response.blob()
+    const blobUrl = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = blobUrl
+    link.download = fileName
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(blobUrl)
+
+    ElMessage.success(`下载成功: ${fileName}`)
+  } catch (error) {
+    console.error('下载失败:', error)
+    const fallbackUrl = `https://raw.githubusercontent.com/${config.github.owner}/${config.github.repo}/${config.github.branch}/materials/${category}/期末复习知识点(含导航).pdf`
+    window.open(fallbackUrl, '_blank')
+    ElMessage.info('正在打开文件...')
+  }
+}
+
 const getCategoryType = (category: string) => {
   const types: Record<string, string> = {
     '计算机系统基础': 'primary',
@@ -325,6 +366,12 @@ onMounted(() => {
   margin-bottom: 20px;
   padding-bottom: 12px;
   border-bottom: 2px solid #ebeef5;
+}
+
+.category-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .type-cards {
