@@ -10,11 +10,8 @@
 - ⬇️ 直接下载资料
 - 📊 查看资料详情
 
-### 管理员功能（GitHub Token登录）
-- 🔐 管理员登录后台
-- 📈 查看统计数据
-- ⬆️ 上传新资料
-- 🗑️ 删除已有资料
+### 资料管理
+- 资料通过本地文件管理，修改 `public/materials.json` 并推送到仓库即可更新
 
 ## 🚀 技术栈
 
@@ -71,9 +68,7 @@ FR-site/
 │   ├── components/           # 组件
 │   ├── views/                # 页面
 │   │   ├── Home.vue          # 首页
-│   │   ├── MaterialDetail.vue # 详情页
-│   │   └── admin/            # 管理员页面
-│   ├── services/             # API服务
+│   │   └── MaterialDetail.vue # 详情页
 │   ├── router/               # 路由
 │   ├── types/                # 类型定义
 │   ├── config/               # 配置文件
@@ -83,25 +78,19 @@ FR-site/
 └── tsconfig.json
 ```
 
-## 🔑 管理后台登录
+## 📝 资料管理
 
-### 1. 创建 GitHub Fine-grained Token
+资料通过本地文件管理，步骤如下：
 
-1. 登录 GitHub，访问 [Personal Access Tokens (Fine-grained)](https://github.com/settings/tokens?type=beta)
-2. 点击 **Generate new token**
-3. 填写 Token 名称（如 `FR-site-admin`），设置过期时间
-4. 在 **Repository access** 中选择 **Only select repositories**，并选择本项目仓库
-5. 在 **Permissions → Repository permissions** 中，将 **Contents** 设置为 **Read and write**
-6. 点击 **Generate token**，**立即复制并保存** Token（页面刷新后无法再次查看）
-
-### 2. 登录管理后台
-
-1. 在浏览器中访问 `/admin/login`（本地开发为 `http://localhost:3005/admin/login`）
-2. 在输入框中粘贴上一步创建的 GitHub Token
-3. 点击 **登录** 按钮，系统会自动验证 Token 有效性
-4. 验证通过后跳转至管理后台（`/admin/dashboard`），即可上传、删除和管理资料
-
-> **注意**：Token 保存在浏览器 localStorage 中，清除浏览器数据后需要重新登录。
+1. 将文件放入 `materials/<分类名>/pdf/` 或 `materials/<分类名>/docx/` 目录
+2. 编辑 `public/materials.json`，添加对应的资料条目
+3. 提交并推送到 GitHub：
+   ```bash
+   git add .
+   git commit -m "添加资料: xxx"
+   git push origin main
+   ```
+4. GitHub Pages 部署完成后即可在网站上看到更新
 
 ## 📊 功能说明
 
@@ -115,10 +104,8 @@ FR-site/
 - 一键下载资料
 - 显示下载次数
 
-### 管理后台
-- 统计面板：资料总数、下载次数、分类统计
-- 上传资料：支持PDF、Word、PPT、图片
-- 管理资料：查看和删除资料
+### 资料管理
+- 本地管理文件和 `public/materials.json`，推送到仓库即可更新
 
 ## 🚀 部署
 

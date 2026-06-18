@@ -14,7 +14,7 @@
         </div>
 
         <div class="type-cards">
-          <!-- PDF模块 -->
+          <!-- PDF模块 (有解析答案版) -->
           <el-card class="type-card" shadow="hover">
             <template #header>
               <div class="type-header" @click="toggleExpand(category, 'pdf')">
@@ -22,7 +22,7 @@
                   <el-icon class="type-icon pdf-icon"><Document /></el-icon>
                   <span class="type-title">PDF 文档</span>
                   <el-tag size="small" type="info">
-                    {{ getCategoryTypeMaterials(category, 'pdf').length }} 个文件
+                    {{ getCategoryTypeMaterials(category, 'pdf', true).length }} 个文件
                   </el-tag>
                 </div>
                 <el-icon class="expand-icon" :class="{ expanded: expandedState[`${category}-pdf`] }">
@@ -33,12 +33,12 @@
 
             <div v-show="expandedState[`${category}-pdf`]" class="file-list">
               <el-empty
-                v-if="getCategoryTypeMaterials(category, 'pdf').length === 0"
+                v-if="getCategoryTypeMaterials(category, 'pdf', true).length === 0"
                 description="暂无PDF文件"
                 :image-size="40"
               />
               <div
-                v-for="material in getCategoryTypeMaterials(category, 'pdf')"
+                v-for="material in getCategoryTypeMaterials(category, 'pdf', true)"
                 :key="material.id"
                 class="file-item"
               >
@@ -59,7 +59,7 @@
             </div>
           </el-card>
 
-          <!-- DOCX模块 -->
+          <!-- DOCX模块 (有解析答案版) -->
           <el-card class="type-card" shadow="hover">
             <template #header>
               <div class="type-header" @click="toggleExpand(category, 'docx')">
@@ -67,7 +67,7 @@
                   <el-icon class="type-icon docx-icon"><Notebook /></el-icon>
                   <span class="type-title">Word 文档</span>
                   <el-tag size="small" type="info">
-                    {{ getCategoryTypeMaterials(category, 'docx').length }} 个文件
+                    {{ getCategoryTypeMaterials(category, 'docx', true).length }} 个文件
                   </el-tag>
                 </div>
                 <el-icon class="expand-icon" :class="{ expanded: expandedState[`${category}-docx`] }">
@@ -78,12 +78,102 @@
 
             <div v-show="expandedState[`${category}-docx`]" class="file-list">
               <el-empty
-                v-if="getCategoryTypeMaterials(category, 'docx').length === 0"
+                v-if="getCategoryTypeMaterials(category, 'docx', true).length === 0"
                 description="暂无Word文件"
                 :image-size="40"
               />
               <div
-                v-for="material in getCategoryTypeMaterials(category, 'docx')"
+                v-for="material in getCategoryTypeMaterials(category, 'docx', true)"
+                :key="material.id"
+                class="file-item"
+              >
+                <div class="file-info">
+                  <el-icon class="file-icon"><Notebook /></el-icon>
+                  <span class="file-name">{{ material.title }}</span>
+                  <span class="file-size">{{ formatFileSize(material.fileSize) }}</span>
+                </div>
+                <el-button
+                  type="primary"
+                  size="small"
+                  :icon="Download"
+                  @click.stop="handleDownload(material)"
+                >
+                  下载
+                </el-button>
+              </div>
+            </div>
+          </el-card>
+
+          <!-- PDF模块 (无解析答案版) -->
+          <el-card class="type-card" shadow="hover">
+            <template #header>
+              <div class="type-header" @click="toggleExpand(category, 'pdf-no-answers')">
+                <div class="type-info">
+                  <el-icon class="type-icon pdf-icon"><Document /></el-icon>
+                  <span class="type-title">PDF (无解析答案版)</span>
+                  <el-tag size="small" type="info">
+                    {{ getCategoryTypeMaterials(category, 'pdf', false).length }} 个文件
+                  </el-tag>
+                </div>
+                <el-icon class="expand-icon" :class="{ expanded: expandedState[`${category}-pdf-no-answers`] }">
+                  <ArrowDown />
+                </el-icon>
+              </div>
+            </template>
+
+            <div v-show="expandedState[`${category}-pdf-no-answers`]" class="file-list">
+              <el-empty
+                v-if="getCategoryTypeMaterials(category, 'pdf', false).length === 0"
+                description="暂无无解析答案版PDF文件"
+                :image-size="40"
+              />
+              <div
+                v-for="material in getCategoryTypeMaterials(category, 'pdf', false)"
+                :key="material.id"
+                class="file-item"
+              >
+                <div class="file-info">
+                  <el-icon class="file-icon"><Document /></el-icon>
+                  <span class="file-name">{{ material.title }}</span>
+                  <span class="file-size">{{ formatFileSize(material.fileSize) }}</span>
+                </div>
+                <el-button
+                  type="primary"
+                  size="small"
+                  :icon="Download"
+                  @click.stop="handleDownload(material)"
+                >
+                  下载
+                </el-button>
+              </div>
+            </div>
+          </el-card>
+
+          <!-- DOCX模块 (无解析答案版) -->
+          <el-card class="type-card" shadow="hover">
+            <template #header>
+              <div class="type-header" @click="toggleExpand(category, 'docx-no-answers')">
+                <div class="type-info">
+                  <el-icon class="type-icon docx-icon"><Notebook /></el-icon>
+                  <span class="type-title">Word (无解析答案版)</span>
+                  <el-tag size="small" type="info">
+                    {{ getCategoryTypeMaterials(category, 'docx', false).length }} 个文件
+                  </el-tag>
+                </div>
+                <el-icon class="expand-icon" :class="{ expanded: expandedState[`${category}-docx-no-answers`] }">
+                  <ArrowDown />
+                </el-icon>
+              </div>
+            </template>
+
+            <div v-show="expandedState[`${category}-docx-no-answers`]" class="file-list">
+              <el-empty
+                v-if="getCategoryTypeMaterials(category, 'docx', false).length === 0"
+                description="暂无无解析答案版Word文件"
+                :image-size="40"
+              />
+              <div
+                v-for="material in getCategoryTypeMaterials(category, 'docx', false)"
                 :key="material.id"
                 class="file-item"
               >
@@ -134,13 +224,14 @@ const loadMaterials = async () => {
   }
 }
 
-const getCategoryTypeMaterials = (category: string, type: string) => {
+const getCategoryTypeMaterials = (category: string, type: string, hasAnswers: boolean = true) => {
   return materials.value.filter(m => {
     if (m.category !== category) return false
     const ext = m.fileName.split('.').pop()?.toLowerCase()
-    if (type === 'pdf') return ext === 'pdf'
-    if (type === 'docx') return ext === 'docx' || ext === 'doc'
-    return false
+    if (type === 'pdf' && ext !== 'pdf') return false
+    if (type === 'docx' && ext !== 'docx' && ext !== 'doc') return false
+    // hasAnswers为true时筛选有解析答案版，为false时筛选无解析答案版
+    return hasAnswers ? (m.hasAnswers !== false) : (m.hasAnswers === false)
   })
 }
 
