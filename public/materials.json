@@ -47,7 +47,151 @@
       "downloads": 0,
       "createdAt": "2026-06-13T00:00:00.000Z",
       "hasAnswers": true
+    },
+    {
+      "id": "5",
+      "title": "第一章",
+      "description": "计算机系统基础 第一章题目（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "第一章.pdf",
+      "filePath": "materials/计算机系统基础/题目only/pdf/第一章.pdf",
+      "fileSize": 82066,
+      "downloads": 0,
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "6",
+      "title": "第一章",
+      "description": "计算机系统基础 第一章题目（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "第一章.docx",
+      "filePath": "materials/计算机系统基础/题目only/docx/第一章.docx",
+      "fileSize": 28769,
+      "downloads": 0,
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "7",
+      "title": "第二章",
+      "description": "计算机系统基础 第二章题目（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "第二章.pdf",
+      "filePath": "materials/计算机系统基础/题目only/pdf/第二章.pdf",
+      "fileSize": 88906,
+      "downloads": 0,
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "8",
+      "title": "第二章",
+      "description": "计算机系统基础 第二章题目（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "第二章.docx",
+      "filePath": "materials/计算机系统基础/题目only/docx/第二章.docx",
+      "fileSize": 27353,
+      "downloads": 0,
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "9",
+      "title": "第三章(一)",
+      "description": "计算机系统基础 第三章(一)题目（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "第三章(一).pdf",
+      "filePath": "materials/计算机系统基础/题目only/pdf/第三章(一).pdf",
+      "fileSize": 62487,
+      "downloads": 0,
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "10",
+      "title": "第三章(一)",
+      "description": "计算机系统基础 第三章(一)题目（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "第三章(一).docx",
+      "filePath": "materials/计算机系统基础/题目only/docx/第三章(一).docx",
+      "fileSize": 27309,
+      "downloads": 0,
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "11",
+      "title": "第三章(二)",
+      "description": "计算机系统基础 第三章(二)题目（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "第三章(二).pdf",
+      "filePath": "materials/计算机系统基础/题目only/pdf/第三章(二).pdf",
+      "fileSize": 61195,
+      "downloads": 0,
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "12",
+      "title": "第三章(二)",
+      "description": "计算机系统基础 第三章(二)题目（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "第三章(二).docx",
+      "filePath": "materials/计算机系统基础/题目only/docx/第三章(二).docx",
+      "fileSize": 27353,
+      "downloads": 0,
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "13",
+      "title": "第四章",
+      "description": "计算机系统基础 第四章题目（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "第四章.pdf",
+      "filePath": "materials/计算机系统基础/题目only/pdf/第四章.pdf",
+      "fileSize": 61416,
+      "downloads": 0,
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "14",
+      "title": "第四章",
+      "description": "计算机系统基础 第四章题目（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "第四章.docx",
+      "filePath": "materials/计算机系统基础/题目only/docx/第四章.docx",
+      "fileSize": 36341,
+      "downloads": 0,
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "15",
+      "title": "补充练习题",
+      "description": "计算机系统基础 补充练习题题目（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "补充练习题.pdf",
+      "filePath": "materials/计算机系统基础/题目only/pdf/补充练习题.pdf",
+      "fileSize": 131145,
+      "downloads": 0,
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "16",
+      "title": "补充练习题",
+      "description": "计算机系统基础 补充练习题题目（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "补充练习题.docx",
+      "filePath": "materials/计算机系统基础/题目only/docx/补充练习题.docx",
+      "fileSize": 31121,
+      "downloads": 0,
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": false
     }
   ],
-  "lastUpdated": "2026-06-13T00:00:00.000Z"
+  "lastUpdated": "2026-06-18T00:00:00.000Z"
 }
