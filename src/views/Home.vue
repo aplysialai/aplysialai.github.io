@@ -13,12 +13,13 @@
               {{ category }}
             </el-tag>
             <el-button
-              type="warning"
+              :type="hasKnowledgePoint(category) ? 'warning' : 'info'"
               size="small"
               :icon="Reading"
+              :disabled="!hasKnowledgePoint(category)"
               @click="handleDownloadKnowledgePoint(category)"
             >
-              复习知识点
+              复习知识点{{ hasKnowledgePoint(category) ? '' : '(无)' }}
             </el-button>
           </div>
         </div>
@@ -279,6 +280,12 @@ const handleDownload = async (material: Material) => {
     window.open(fallbackUrl, '_blank')
     ElMessage.info('正在打开文件...')
   }
+}
+
+const knowledgePointCategories = new Set(['计算机系统基础'])
+
+const hasKnowledgePoint = (category: string) => {
+  return knowledgePointCategories.has(category)
 }
 
 const handleDownloadKnowledgePoint = async (category: string) => {
