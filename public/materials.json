@@ -19,7 +19,7 @@
       "category": "计算机系统基础",
       "fileName": "第一章.docx",
       "filePath": "materials/计算机系统基础/docx/第一章.docx",
-      "fileSize": 33719,
+      "fileSize": 35793,
       "downloads": 0,
       "createdAt": "2026-06-13T00:00:00.000Z",
       "hasAnswers": true
@@ -31,7 +31,7 @@
       "category": "计算机系统基础",
       "fileName": "第二章.pdf",
       "filePath": "materials/计算机系统基础/pdf/第二章.pdf",
-      "fileSize": 325137,
+      "fileSize": 328260,
       "downloads": 0,
       "createdAt": "2026-06-13T00:00:00.000Z",
       "hasAnswers": true
@@ -43,9 +43,93 @@
       "category": "计算机系统基础",
       "fileName": "第二章.docx",
       "filePath": "materials/计算机系统基础/docx/第二章.docx",
-      "fileSize": 46482,
+      "fileSize": 46669,
       "downloads": 0,
       "createdAt": "2026-06-13T00:00:00.000Z",
+      "hasAnswers": true
+    },
+    {
+      "id": "17",
+      "title": "第三章(一)",
+      "description": "计算机系统基础 第三章(一)课件",
+      "category": "计算机系统基础",
+      "fileName": "第三章(一).pdf",
+      "filePath": "materials/计算机系统基础/pdf/第三章(一).pdf",
+      "fileSize": 204180,
+      "downloads": 0,
+      "createdAt": "2026-06-19T00:00:00.000Z",
+      "hasAnswers": true
+    },
+    {
+      "id": "18",
+      "title": "第三章(一)",
+      "description": "计算机系统基础 第三章(一)文档",
+      "category": "计算机系统基础",
+      "fileName": "第三章(一).docx",
+      "filePath": "materials/计算机系统基础/docx/第三章(一).docx",
+      "fileSize": 35254,
+      "downloads": 0,
+      "createdAt": "2026-06-19T00:00:00.000Z",
+      "hasAnswers": true
+    },
+    {
+      "id": "19",
+      "title": "第三章(二)",
+      "description": "计算机系统基础 第三章(二)课件",
+      "category": "计算机系统基础",
+      "fileName": "第三章(二).pdf",
+      "filePath": "materials/计算机系统基础/pdf/第三章(二).pdf",
+      "fileSize": 177476,
+      "downloads": 0,
+      "createdAt": "2026-06-19T00:00:00.000Z",
+      "hasAnswers": true
+    },
+    {
+      "id": "20",
+      "title": "第三章(二)",
+      "description": "计算机系统基础 第三章(二)文档",
+      "category": "计算机系统基础",
+      "fileName": "第三章(二).docx",
+      "filePath": "materials/计算机系统基础/docx/第三章(二).docx",
+      "fileSize": 32846,
+      "downloads": 0,
+      "createdAt": "2026-06-19T00:00:00.000Z",
+      "hasAnswers": true
+    },
+    {
+      "id": "21",
+      "title": "第四章",
+      "description": "计算机系统基础 第四章课件",
+      "category": "计算机系统基础",
+      "fileName": "第四章.pdf",
+      "filePath": "materials/计算机系统基础/pdf/第四章.pdf",
+      "fileSize": 153969,
+      "downloads": 0,
+      "createdAt": "2026-06-19T00:00:00.000Z",
+      "hasAnswers": true
+    },
+    {
+      "id": "22",
+      "title": "第四章",
+      "description": "计算机系统基础 第四章文档",
+      "category": "计算机系统基础",
+      "fileName": "第四章.docx",
+      "filePath": "materials/计算机系统基础/docx/第四章.docx",
+      "fileSize": 32453,
+      "downloads": 0,
+      "createdAt": "2026-06-19T00:00:00.000Z",
+      "hasAnswers": true
+    },
+    {
+      "id": "23",
+      "title": "期末复习知识点(含导航)",
+      "description": "计算机系统基础 期末复习知识点(含导航)",
+      "category": "计算机系统基础",
+      "fileName": "期末复习知识点(含导航).pdf",
+      "filePath": "materials/计算机系统基础/pdf/期末复习知识点(含导航).pdf",
+      "fileSize": 129545,
+      "downloads": 0,
+      "createdAt": "2026-06-19T00:00:00.000Z",
       "hasAnswers": true
     },
     {
@@ -167,31 +251,7 @@
       "downloads": 0,
       "createdAt": "2026-06-13T00:00:00.000Z",
       "hasAnswers": false
-    },
-    {
-      "id": "15",
-      "title": "补充练习题",
-      "description": "计算机系统基础 补充练习题题目（无解析）",
-      "category": "计算机系统基础",
-      "fileName": "补充练习题.pdf",
-      "filePath": "materials/计算机系统基础/题目only/pdf/补充练习题.pdf",
-      "fileSize": 131145,
-      "downloads": 0,
-      "createdAt": "2026-06-13T00:00:00.000Z",
-      "hasAnswers": false
-    },
-    {
-      "id": "16",
-      "title": "补充练习题",
-      "description": "计算机系统基础 补充练习题题目（无解析）",
-      "category": "计算机系统基础",
-      "fileName": "补充练习题.docx",
-      "filePath": "materials/计算机系统基础/题目only/docx/补充练习题.docx",
-      "fileSize": 31121,
-      "downloads": 0,
-      "createdAt": "2026-06-13T00:00:00.000Z",
-      "hasAnswers": false
     }
   ],
-  "lastUpdated": "2026-06-18T00:00:00.000Z"
+  "lastUpdated": "2026-06-19T00:00:00.000Z"
 }
