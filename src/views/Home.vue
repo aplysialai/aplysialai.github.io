@@ -3,6 +3,7 @@
     <div class="header">
       <h1>期末复习资料分享</h1>
       <p>所有资料免费下载，祝你考试顺利！</p>
+      <p class="download-hint">点击下载等待2s即可(反应可能有延迟)，不要多次点击下载按钮</p>
     </div>
 
     <div class="content" v-loading="loading">
@@ -365,6 +366,12 @@ onMounted(() => {
 .header p {
   font-size: 1.1rem;
   color: #606266;
+}
+
+.header .download-hint {
+  font-size: 0.9rem;
+  color: #909399;
+  margin-top: 4px;
 }
 
 .category-section {
