@@ -19,7 +19,7 @@
           <div v-if="qrError" class="donate-placeholder">
             <p>📷</p>
             <p>请将赞赏二维码保存为</p>
-            <code>public/images/赞赏码.png</code>
+            <code>public/images/wx二维码.png</code>
           </div>
           <img v-else :src="donateQrSrc" alt="赞赏二维码" class="donate-qrcode"
             @error="onQrError" />
@@ -39,7 +39,7 @@ import { Present } from '@element-plus/icons-vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 const showDonate = ref(false)
-const donateQrSrc = '/images/赞赏码.png'
+const donateQrSrc = '/images/wx二维码.png'
 const qrError = ref(false)
 
 const onQrError = () => {
