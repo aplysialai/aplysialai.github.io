@@ -14,6 +14,7 @@
         width="420px"
         :align-center="true"
         :close-on-click-modal="true"
+        @open="onDialogOpen"
       >
         <div class="donate-content">
           <div class="donate-images">
@@ -27,8 +28,13 @@
                 @error="onQrError" />
             </div>
             <div class="donate-bulusi-wrap">
-              <img :src="bulusiSrc" alt="布鲁斯" class="donate-bulusi"
-                @error="onBulusiError" />
+              <div class="bulusi-row">
+                <img :src="bulusiSrc" alt="布鲁斯" class="donate-bulusi" />
+                <div class="bulusi-btns">
+                  <el-button size="small" type="danger" plain @click="bulusiSrc = '/images/no.jpg'">不行</el-button>
+                  <el-button size="small" type="success" plain @click="bulusiSrc = '/images/good.jpg'">好</el-button>
+                </div>
+              </div>
               <p class="donate-bulusi-text">布鲁斯让你靠近点扫</p>
             </div>
           </div>
@@ -46,15 +52,17 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 const showDonate = ref(false)
 const donateQrSrc = '/images/wx二维码.png'
-const bulusiSrc = '/images/bulusi.jpg'
+const bulusiSrc = ref('/images/bulusi.jpg')
 const qrError = ref(false)
+
+const onDialogOpen = () => {
+  // 每次打开弹窗重置图片
+  bulusiSrc.value = '/images/bulusi.jpg'
+  qrError.value = false
+}
 
 const onQrError = () => {
   qrError.value = true
-}
-
-const onBulusiError = () => {
-  // bulusi 图片加载失败时静默处理
 }
 </script>
 
@@ -163,11 +171,23 @@ body {
   flex-shrink: 0;
 }
 
+.bulusi-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .donate-bulusi {
   width: 120px;
   height: 120px;
   object-fit: cover;
   border-radius: 8px;
+}
+
+.bulusi-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .donate-bulusi-text {
