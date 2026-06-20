@@ -190,6 +190,10 @@ body {
   gap: 6px;
 }
 
+.bulusi-btns .el-button {
+  width: 64px;
+}
+
 .donate-bulusi-text {
   margin-top: 6px;
   font-size: 13px;
