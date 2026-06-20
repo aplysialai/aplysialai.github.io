@@ -188,7 +188,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 
 .bulusi-btns .el-button {
