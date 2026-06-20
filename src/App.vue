@@ -188,10 +188,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  align-items: flex-start;
 }
 
 .bulusi-btns .el-button {
   width: 64px;
+  justify-content: center;
 }
 
 .donate-bulusi-text {
