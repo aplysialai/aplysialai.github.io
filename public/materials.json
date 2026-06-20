@@ -130,7 +130,8 @@
       "fileSize": 129545,
       "downloads": 0,
       "createdAt": "2026-06-19T00:00:00.000Z",
-      "hasAnswers": true
+      "hasAnswers": true,
+      "isKnowledgePoint": true
     },
     {
       "id": "5",
@@ -502,7 +503,8 @@
       "fileSize": 331104,
       "downloads": 0,
       "createdAt": "2026-06-21T00:00:00.000Z",
-      "hasAnswers": true
+      "hasAnswers": true,
+      "isKnowledgePoint": true
     },
     {
       "id": "45",

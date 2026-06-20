@@ -238,6 +238,7 @@ const loadMaterials = async () => {
 const getCategoryTypeMaterials = (category: string, type: string, hasAnswers: boolean = true) => {
   return materials.value.filter(m => {
     if (m.category !== category) return false
+    if (m.isKnowledgePoint) return false // 复习知识点文件不显示在常规列表中
     const ext = m.fileName.split('.').pop()?.toLowerCase()
     if (type === 'pdf' && ext !== 'pdf') return false
     if (type === 'docx' && ext !== 'docx' && ext !== 'doc') return false
@@ -282,17 +283,18 @@ const handleDownload = async (material: Material) => {
   }
 }
 
-const knowledgePointCategories = new Set(['计算机系统基础'])
-
 const hasKnowledgePoint = (category: string) => {
-  return knowledgePointCategories.has(category)
+  return materials.value.some(m => m.category === category && m.isKnowledgePoint === true)
 }
 
 const handleDownloadKnowledgePoint = async (category: string) => {
+  const material = materials.value.find(m => m.category === category && m.isKnowledgePoint === true)
+  if (!material) {
+    ElMessage.error('未找到复习知识点文件')
+    return
+  }
   try {
-    const fileName = '期末复习知识点(含导航).pdf'
-    const filePath = `materials/${category}/${fileName}`
-    const url = `https://cdn.jsdelivr.net/gh/${config.github.owner}/${config.github.repo}@${config.github.branch}/${filePath}`
+    const url = `https://cdn.jsdelivr.net/gh/${config.github.owner}/${config.github.repo}@${config.github.branch}/${material.filePath}`
 
     const response = await fetch(url)
 
@@ -304,16 +306,16 @@ const handleDownloadKnowledgePoint = async (category: string) => {
     const blobUrl = window.URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.href = blobUrl
-    link.download = fileName
+    link.download = material.fileName
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
     window.URL.revokeObjectURL(blobUrl)
 
-    ElMessage.success(`下载成功: ${fileName}`)
+    ElMessage.success(`下载成功: ${material.fileName}`)
   } catch (error) {
     console.error('下载失败:', error)
-    const fallbackUrl = `https://raw.githubusercontent.com/${config.github.owner}/${config.github.repo}/${config.github.branch}/materials/${category}/期末复习知识点(含导航).pdf`
+    const fallbackUrl = `https://raw.githubusercontent.com/${config.github.owner}/${config.github.repo}/${config.github.branch}/${material.filePath}`
     window.open(fallbackUrl, '_blank')
     ElMessage.info('正在打开文件...')
   }
