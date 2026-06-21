@@ -73,7 +73,7 @@ const loading = ref(true)
 const loadMaterial = async () => {
   try {
     const id = route.params.id as string
-    const response = await fetch('/materials.json')
+    const response = await fetch(`/materials.json?t=${Date.now()}`)
     const data = await response.json()
     material.value = data.materials.find((m: Material) => m.id === id) || null
   } catch (error) {

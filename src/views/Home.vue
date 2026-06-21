@@ -226,7 +226,7 @@ const categories = config.categories
 
 const loadMaterials = async () => {
   try {
-    const response = await fetch('/materials.json')
+    const response = await fetch(`/materials.json?t=${Date.now()}`)
     const data = await response.json()
     materials.value = data.materials || []
   } catch (error) {
