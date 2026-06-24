@@ -14,13 +14,23 @@
               {{ category }}
             </el-tag>
             <el-button
-              :type="hasKnowledgePoint(category) ? 'warning' : 'info'"
+              v-for="kp in getKnowledgePoints(category)"
+              :key="kp.id"
+              type="warning"
               size="small"
               :icon="Reading"
-              :disabled="!hasKnowledgePoint(category)"
-              @click="handleDownloadKnowledgePoint(category)"
+              @click="handleDownloadKnowledgePoint(kp)"
             >
-              复习知识点{{ hasKnowledgePoint(category) ? '' : '(无)' }}
+              复习知识点:{{ kp.fileName.match(/^(\d+)/)?.[1] || kp.title }}
+            </el-button>
+            <el-button
+              v-if="getKnowledgePoints(category).length === 0"
+              type="info"
+              size="small"
+              :icon="Reading"
+              disabled
+            >
+              复习知识点(无)
             </el-button>
           </div>
         </div>
@@ -284,16 +294,11 @@ const handleDownload = async (material: Material) => {
   }
 }
 
-const hasKnowledgePoint = (category: string) => {
-  return materials.value.some(m => m.category === category && m.isKnowledgePoint === true)
+const getKnowledgePoints = (category: string) => {
+  return materials.value.filter(m => m.category === category && m.isKnowledgePoint === true)
 }
 
-const handleDownloadKnowledgePoint = async (category: string) => {
-  const material = materials.value.find(m => m.category === category && m.isKnowledgePoint === true)
-  if (!material) {
-    ElMessage.error('未找到复习知识点文件')
-    return
-  }
+const handleDownloadKnowledgePoint = async (material: Material) => {
   try {
     const url = `https://cdn.jsdelivr.net/gh/${config.github.owner}/${config.github.repo}@${config.github.branch}/${material.filePath}`
 

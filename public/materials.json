@@ -121,19 +121,6 @@
       "hasAnswers": true
     },
     {
-      "id": "23",
-      "title": "期末复习知识点(含导航)",
-      "description": "计算机系统基础 期末复习知识点(含导航)",
-      "category": "计算机系统基础",
-      "fileName": "期末复习知识点(含导航).pdf",
-      "filePath": "materials/计算机系统基础/pdf/期末复习知识点(含导航).pdf",
-      "fileSize": 129545,
-      "downloads": 0,
-      "createdAt": "2026-06-19T00:00:00.000Z",
-      "hasAnswers": true,
-      "isKnowledgePoint": true
-    },
-    {
       "id": "5",
       "title": "第一章",
       "description": "计算机系统基础 第一章题目（无解析）",
@@ -1129,7 +1116,33 @@
       "downloads": 0,
       "createdAt": "2026-06-21T00:00:00.000Z",
       "hasAnswers": false
+    },
+    {
+      "id": "97",
+      "title": "01计算机系统期末复习知识点",
+      "description": "计算机系统基础 01计算机系统期末复习知识点",
+      "category": "计算机系统基础",
+      "fileName": "01计算机系统期末复习知识点.pdf",
+      "filePath": "materials/计算机系统基础/01计算机系统期末复习知识点.pdf",
+      "fileSize": 129545,
+      "downloads": 0,
+      "createdAt": "2026-06-24T00:00:00.000Z",
+      "hasAnswers": true,
+      "isKnowledgePoint": true
+    },
+    {
+      "id": "98",
+      "title": "02计算机系统基础复习知识点",
+      "description": "计算机系统基础 02计算机系统基础复习知识点",
+      "category": "计算机系统基础",
+      "fileName": "02计算机系统基础复习知识点.pdf",
+      "filePath": "materials/计算机系统基础/02计算机系统基础复习知识点.pdf",
+      "fileSize": 971149,
+      "downloads": 0,
+      "createdAt": "2026-06-24T00:00:00.000Z",
+      "hasAnswers": true,
+      "isKnowledgePoint": true
     }
   ],
-  "lastUpdated": "2026-06-21T00:00:00.000Z"
+  "lastUpdated": "2026-06-24T00:00:00.000Z"
 }
