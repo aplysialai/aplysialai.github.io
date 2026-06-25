@@ -1214,6 +1214,43 @@
       "downloads": 0,
       "createdAt": "2026-06-21T00:00:00.000Z",
       "hasAnswers": false
+    },
+    {
+      "id": "105",
+      "title": "01软件设计与体系结构复习知识点",
+      "description": "软件设计与体系结构 01软件设计与体系结构复习知识点",
+      "category": "软件设计与体系结构",
+      "fileName": "01软件设计与体系结构复习知识点.pdf",
+      "filePath": "public/materials/软件设计与体系结构/01软件设计与体系结构复习知识点.pdf",
+      "fileSize": 217497,
+      "downloads": 0,
+      "createdAt": "2026-06-25T00:00:00.000Z",
+      "hasAnswers": true,
+      "isKnowledgePoint": true
+    },
+    {
+      "id": "106",
+      "title": "软件设计与体系结构(习题01)",
+      "description": "软件设计与体系结构 软件设计与体系结构(习题01)（无解析）",
+      "category": "软件设计与体系结构",
+      "fileName": "软件设计与体系结构(习题01).pdf",
+      "filePath": "public/materials/软件设计与体系结构/题目only/pdf/软件设计与体系结构(习题01).pdf",
+      "fileSize": 251235,
+      "downloads": 0,
+      "createdAt": "2026-06-25T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "107",
+      "title": "软件设计与体系结构(习题01)",
+      "description": "软件设计与体系结构 软件设计与体系结构(习题01)（无解析）",
+      "category": "软件设计与体系结构",
+      "fileName": "软件设计与体系结构(习题01).docx",
+      "filePath": "public/materials/软件设计与体系结构/题目only/docx/软件设计与体系结构(习题01).docx",
+      "fileSize": 107332,
+      "downloads": 0,
+      "createdAt": "2026-06-25T00:00:00.000Z",
+      "hasAnswers": false
     }
   ],
   "lastUpdated": "2026-06-25T00:00:00.000Z"
