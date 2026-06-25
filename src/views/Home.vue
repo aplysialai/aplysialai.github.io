@@ -4,6 +4,8 @@
       <h1>期末复习资料分享</h1>
       <p>所有资料免费下载，祝你考试顺利！</p>
       <p class="download-hint">点击下载等待2s即可(反应可能有延迟)，不要多次点击下载按钮</p>
+      <p class="download-hint">部分答案由AI生成，有疑问可下载无解析答案版自行检索</p>
+      <p class="download-hint">计算机系统基础的计算题在课本上所教与部分老师所教出入较大(包括AI生成答案)，建议询问老师考试标准</p>
     </div>
 
     <div class="content" v-loading="loading">
