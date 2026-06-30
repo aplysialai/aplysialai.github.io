@@ -1251,7 +1251,20 @@
       "downloads": 0,
       "createdAt": "2026-06-25T00:00:00.000Z",
       "hasAnswers": false
+    },
+    {
+      "id": "108",
+      "title": "02软件设计与体系结构复习知识点",
+      "description": "软件设计与体系结构 02软件设计与体系结构复习知识点",
+      "category": "软件设计与体系结构",
+      "fileName": "02软件设计与体系结构复习知识点.pdf",
+      "filePath": "public/materials/软件设计与体系结构/02软件设计与体系结构复习知识点.pdf",
+      "fileSize": 89345,
+      "downloads": 0,
+      "createdAt": "2026-06-30T00:00:00.000Z",
+      "hasAnswers": true,
+      "isKnowledgePoint": true
     }
   ],
-  "lastUpdated": "2026-06-25T00:00:00.000Z"
+  "lastUpdated": "2026-06-30T00:00:00.000Z"
 }
