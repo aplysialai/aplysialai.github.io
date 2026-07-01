@@ -1144,6 +1144,54 @@
       "isKnowledgePoint": true
     },
     {
+      "id": "109",
+      "title": "计算机系统(习题01)",
+      "description": "计算机系统基础 计算机系统(习题01)（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "计算机系统(习题01).pdf",
+      "filePath": "public/materials/计算机系统基础/题目only/pdf/计算机系统(习题01).pdf",
+      "fileSize": 545931,
+      "downloads": 0,
+      "createdAt": "2026-07-01T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "110",
+      "title": "计算机系统(习题01)",
+      "description": "计算机系统基础 计算机系统(习题01)（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "计算机系统(习题01).docx",
+      "filePath": "public/materials/计算机系统基础/题目only/docx/计算机系统(习题01).docx",
+      "fileSize": 804625,
+      "downloads": 0,
+      "createdAt": "2026-07-01T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "111",
+      "title": "计算机系统(习题02)",
+      "description": "计算机系统基础 计算机系统(习题02)（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "计算机系统(习题02).pdf",
+      "filePath": "public/materials/计算机系统基础/题目only/pdf/计算机系统(习题02).pdf",
+      "fileSize": 184182,
+      "downloads": 0,
+      "createdAt": "2026-07-01T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
+      "id": "112",
+      "title": "计算机系统(习题02)",
+      "description": "计算机系统基础 计算机系统(习题02)（无解析）",
+      "category": "计算机系统基础",
+      "fileName": "计算机系统(习题02).docx",
+      "filePath": "public/materials/计算机系统基础/题目only/docx/计算机系统(习题02).docx",
+      "fileSize": 32799,
+      "downloads": 0,
+      "createdAt": "2026-07-01T00:00:00.000Z",
+      "hasAnswers": false
+    },
+    {
       "id": "99",
       "title": "软件设计模式(习题01)",
       "description": "软件设计模式 软件设计模式(习题01)",
@@ -1266,5 +1314,5 @@
       "isKnowledgePoint": true
     }
   ],
-  "lastUpdated": "2026-06-30T00:00:00.000Z"
+  "lastUpdated": "2026-07-01T00:00:00.000Z"
 }
