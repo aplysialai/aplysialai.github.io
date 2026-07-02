@@ -1288,6 +1288,67 @@
       "createdAt": "2026-06-30T00:00:00.000Z",
       "hasAnswers": true,
       "isKnowledgePoint": true
+    },
+    {
+      "id": "113",
+      "title": "02-1软件设计与体系结构复习知识点",
+      "description": "软件设计与体系结构 02-1软件设计与体系结构复习知识点",
+      "category": "软件设计与体系结构",
+      "fileName": "02-1软件设计与体系结构复习知识点.pdf",
+      "filePath": "public/materials/软件设计与体系结构/02-1软件设计与体系结构复习知识点.pdf",
+      "fileSize": 196964,
+      "downloads": 0,
+      "createdAt": "2026-07-02T00:00:00.000Z",
+      "hasAnswers": true,
+      "isKnowledgePoint": true
+    },
+    {
+      "id": "114",
+      "title": "软件设计与体系结构(习题01)",
+      "description": "软件设计与体系结构 软件设计与体系结构(习题01)",
+      "category": "软件设计与体系结构",
+      "fileName": "软件设计与体系结构(习题01).pdf",
+      "filePath": "public/materials/软件设计与体系结构/pdf/软件设计与体系结构(习题01).pdf",
+      "fileSize": 253848,
+      "downloads": 0,
+      "createdAt": "2026-07-02T00:00:00.000Z",
+      "hasAnswers": true
+    },
+    {
+      "id": "115",
+      "title": "软件设计与体系结构(习题01)",
+      "description": "软件设计与体系结构 软件设计与体系结构(习题01)",
+      "category": "软件设计与体系结构",
+      "fileName": "软件设计与体系结构(习题01).docx",
+      "filePath": "public/materials/软件设计与体系结构/docx/软件设计与体系结构(习题01).docx",
+      "fileSize": 108008,
+      "downloads": 0,
+      "createdAt": "2026-07-02T00:00:00.000Z",
+      "hasAnswers": true
+    },
+    {
+      "id": "116",
+      "title": "软件设计与体系结构(习题02)",
+      "description": "软件设计与体系结构 软件设计与体系结构(习题02)",
+      "category": "软件设计与体系结构",
+      "fileName": "软件设计与体系结构(习题02).pdf",
+      "filePath": "public/materials/软件设计与体系结构/pdf/软件设计与体系结构(习题02).pdf",
+      "fileSize": 758341,
+      "downloads": 0,
+      "createdAt": "2026-07-02T00:00:00.000Z",
+      "hasAnswers": true
+    },
+    {
+      "id": "117",
+      "title": "软件设计与体系结构(习题02)",
+      "description": "软件设计与体系结构 软件设计与体系结构(习题02)",
+      "category": "软件设计与体系结构",
+      "fileName": "软件设计与体系结构(习题02).docx",
+      "filePath": "public/materials/软件设计与体系结构/docx/软件设计与体系结构(习题02).docx",
+      "fileSize": 2606775,
+      "downloads": 0,
+      "createdAt": "2026-07-02T00:00:00.000Z",
+      "hasAnswers": true
     }
   ],
   "lastUpdated": "2026-07-02T00:00:00.000Z"
