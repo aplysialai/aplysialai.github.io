@@ -1349,7 +1349,31 @@
       "downloads": 0,
       "createdAt": "2026-07-02T00:00:00.000Z",
       "hasAnswers": true
+    },
+    {
+      "id": "118",
+      "title": "软件设计与体系结构复习题（一）含答案",
+      "description": "软件设计与体系结构 软件设计与体系结构复习题（一）含答案",
+      "category": "软件设计与体系结构",
+      "fileName": "软件设计与体系结构复习题（一）含答案.pdf",
+      "filePath": "public/materials/软件设计与体系结构/pdf/软件设计与体系结构复习题（一）含答案.pdf",
+      "fileSize": 448906,
+      "downloads": 0,
+      "createdAt": "2026-07-05T00:00:00.000Z",
+      "hasAnswers": true
+    },
+    {
+      "id": "119",
+      "title": "软件设计与体系结构复习题（二）含答案",
+      "description": "软件设计与体系结构 软件设计与体系结构复习题（二）含答案",
+      "category": "软件设计与体系结构",
+      "fileName": "软件设计与体系结构复习题（二）含答案.pdf",
+      "filePath": "public/materials/软件设计与体系结构/pdf/软件设计与体系结构复习题（二）含答案.pdf",
+      "fileSize": 459244,
+      "downloads": 0,
+      "createdAt": "2026-07-05T00:00:00.000Z",
+      "hasAnswers": true
     }
   ],
-  "lastUpdated": "2026-07-02T00:00:00.000Z"
+  "lastUpdated": "2026-07-05T00:00:00.000Z"
 }
